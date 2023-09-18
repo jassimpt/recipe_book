@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_book/pages/createscreen.dart';
 import 'package:recipe_book/pages/favourites.dart';
 import 'package:recipe_book/pages/home.dart';
 import 'package:recipe_book/pages/notifications.dart';
@@ -33,7 +34,13 @@ class _BottomnavState extends State<Bottomnav> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.red,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Createscreen(),
+              ));
+        },
         child: Icon(Icons.add),
       ),
       bottomNavigationBar: Container(
