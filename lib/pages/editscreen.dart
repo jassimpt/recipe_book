@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:recipe_book/colors/colors.dart';
 import 'package:recipe_book/widgets/custom_text_field_in_upload.dart';
 
-class Createscreen extends StatefulWidget {
-  const Createscreen({Key? key}) : super(key: key);
+class editscreen extends StatefulWidget {
+  const editscreen({Key? key}) : super(key: key);
 
   @override
-  _CreatescreenState createState() => _CreatescreenState();
+  _editscreenState createState() => _editscreenState();
 }
 
-class _CreatescreenState extends State<Createscreen> {
+class _editscreenState extends State<editscreen> {
   bool isFieldFocused = false;
   List ingredients = [1];
 
@@ -34,7 +34,7 @@ class _CreatescreenState extends State<Createscreen> {
                   height: 15,
                 ),
                 const Text(
-                  'Create Recipe',
+                  'Update Recipe',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
@@ -122,7 +122,7 @@ class _CreatescreenState extends State<Createscreen> {
                               MaterialStatePropertyAll(Colors.red)),
                       onPressed: () {},
                       child: const Text(
-                        'Add my recipe',
+                        'Update my recipe',
                         style: TextStyle(fontSize: 16),
                       )),
                 )

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_book/colors/colors.dart';
+import 'package:recipe_book/pages/editscreen.dart';
 
 class Homepage extends StatelessWidget {
-  const Homepage({super.key});
+  const Homepage({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +17,10 @@ class Homepage extends StatelessWidget {
               const Text(
                 'Roberta Anny ',
                 style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 164, 163, 163)),
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: usernamegrey,
+                ),
               ),
               const SizedBox(
                 height: 20,
@@ -37,82 +40,131 @@ class Homepage extends StatelessWidget {
                 // Search Field
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12))),
+                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                  ),
                   hintText: 'Search your item',
                 ),
               ),
-              SizedBox(
-                height: 20,
+              const SizedBox(
+                height: 40,
               ),
               Expanded(
                 child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2),
-                  itemCount: 8,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.7,
+                  ),
+                  itemCount:
+                      2, // Change this to the number of grid items you want
                   itemBuilder: (context, index) {
-                    return OverflowingImageContainer(); // Use the new widget here
+                    return recipecard(context);
                   },
                 ),
-              )
+              ),
             ],
           ),
         ),
       ),
     );
   }
-}
 
-class OverflowingImageContainer extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      clipBehavior: Clip.none, // Allow overflowing content
-      alignment: Alignment.topCenter,
-      children: [
-        Container(
-          margin: EdgeInsets.all(8),
-          padding: EdgeInsets.all(8.0),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(16.0),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 2,
-                blurRadius: 5,
-                offset: Offset(0, 3),
-              ),
-            ],
-          ),
-          child: ClipOval(
-            child: Container(
-              width: 150.0, // Adjust the size as needed
-              height: 150.0, // Adjust the size as needed
-              color: Colors.transparent, // Transparent background
-            ),
-          ),
-        ),
-        Positioned(
-          top: -40, // Adjust this value to control the overflow amount
-          child: Container(
-            width: 120, // Adjust the size as needed
-            height: 120, // Adjust the size as needed
+  Widget recipecard(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: Stack(
+        children: [
+          Container(
+            height: 220,
             decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: Colors.white,
-                width: 5,
-              ),
+              color: boxgrey,
+              borderRadius: BorderRadius.circular(12.0),
             ),
-            child: ClipOval(
-              child: Image.asset(
-                'assets/images/food.png',
-                fit: BoxFit.cover,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => editscreen(),
+                        ));
+                        // Add your edit functionality here
+                      },
+                      icon: Image.asset(
+                        'assets/icons/edit.png',
+                        height: 20,
+                      ),
+                      color: Colors.white,
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        // Add your favorites functionality here
+                      },
+                      icon: Image.asset(
+                        'assets/icons/Bookmark.png',
+                        height: 20,
+                      ),
+                      color: Colors.white,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Transform.translate(
+            offset: const Offset(22, -40),
+            child: Container(
+              width: 120,
+              height: 120,
+              decoration: BoxDecoration(
+                  color: Colors.black,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        spreadRadius: 2,
+                        blurRadius: 4,
+                        offset: Offset(0, 2))
+                  ]),
+              child: ClipOval(
+                child: Image.asset(
+                  'assets/images/food.png',
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
-        ),
-      ],
+          const Positioned(
+            top: 100,
+            left: 0,
+            right: 0,
+            child: Column(
+              children: [
+                Text(
+                  'Pepper sweetcorn', // Replace with the actual food name
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  'Ramen', // Replace with the actual food name
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
