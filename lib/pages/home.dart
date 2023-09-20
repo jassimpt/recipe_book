@@ -68,7 +68,7 @@ class Homepage extends StatelessWidget {
     );
   }
 
-  Widget recipecard(BuildContext context) {
+  recipecard(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Stack(
@@ -103,7 +103,7 @@ class Homepage extends StatelessWidget {
                         // Add your favorites functionality here
                       },
                       icon: Image.asset(
-                        'assets/icons/Bookmark.png',
+                        'assets/icons/bookmark.png',
                         height: 20,
                       ),
                       color: Colors.white,
@@ -126,7 +126,7 @@ class Homepage extends StatelessWidget {
                         color: Colors.black.withOpacity(0.2),
                         spreadRadius: 2,
                         blurRadius: 4,
-                        offset: Offset(0, 2))
+                        offset: const Offset(0, 2))
                   ]),
               child: ClipOval(
                 child: Image.asset(
