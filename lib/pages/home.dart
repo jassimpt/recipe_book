@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_book/colors/colors.dart';
 import 'package:recipe_book/pages/editscreen.dart';
+import 'package:recipe_book/pages/tutorialpage.dart';
 
 class Homepage extends StatelessWidget {
   const Homepage({Key? key});
@@ -69,101 +70,108 @@ class Homepage extends StatelessWidget {
   }
 
   recipecard(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: Stack(
-        children: [
-          Container(
-            height: 220,
-            decoration: BoxDecoration(
-              color: boxgrey,
-              borderRadius: BorderRadius.circular(12.0),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => editscreen(),
-                        ));
-                        // Add your edit functionality here
-                      },
-                      icon: Image.asset(
-                        'assets/icons/edit.png',
-                        height: 20,
-                      ),
-                      color: Colors.white,
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        // Add your favorites functionality here
-                      },
-                      icon: Image.asset(
-                        'assets/icons/bookmark.png',
-                        height: 20,
-                      ),
-                      color: Colors.white,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Transform.translate(
-            offset: const Offset(22, -40),
-            child: Container(
-              width: 120,
-              height: 120,
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => tutorialscreen(),
+        ));
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Stack(
+          children: [
+            Container(
+              height: 220,
               decoration: BoxDecoration(
-                  color: Colors.black,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        spreadRadius: 2,
-                        blurRadius: 4,
-                        offset: const Offset(0, 2))
-                  ]),
-              child: ClipOval(
-                child: Image.asset(
-                  'assets/images/food.png',
-                  fit: BoxFit.cover,
+                color: boxgrey,
+                borderRadius: BorderRadius.circular(12.0),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => editscreen(),
+                          ));
+                          // Add your edit functionality here
+                        },
+                        icon: Image.asset(
+                          'assets/icons/edit.png',
+                          height: 20,
+                        ),
+                        color: Colors.white,
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          // Add your favorites functionality here
+                        },
+                        icon: Image.asset(
+                          'assets/icons/bookmark.png',
+                          height: 20,
+                        ),
+                        color: Colors.white,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Transform.translate(
+              offset: const Offset(22, -40),
+              child: Container(
+                width: 120,
+                height: 120,
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          spreadRadius: 2,
+                          blurRadius: 4,
+                          offset: const Offset(0, 2))
+                    ]),
+                child: ClipOval(
+                  child: Image.asset(
+                    'assets/images/food.png',
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
-          ),
-          const Positioned(
-            top: 100,
-            left: 0,
-            right: 0,
-            child: Column(
-              children: [
-                Text(
-                  'Pepper sweetcorn', // Replace with the actual food name
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
+            const Positioned(
+              top: 100,
+              left: 0,
+              right: 0,
+              child: Column(
+                children: [
+                  Text(
+                    'Pepper sweetcorn', // Replace with the actual food name
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
-                ),
-                Text(
-                  'Ramen', // Replace with the actual food name
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
+                  Text(
+                    'Ramen', // Replace with the actual food name
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

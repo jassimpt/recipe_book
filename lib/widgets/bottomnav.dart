@@ -79,7 +79,7 @@ class _BottomnavState extends State<Bottomnav> {
                   _bottomnavigator(1);
                 },
               ),
-              SizedBox(), // This is an empty space to leave room for the FloatingActionButton
+              SizedBox(),
               IconButton(
                 icon: _selectedindex == 2
                     ? Image.asset(

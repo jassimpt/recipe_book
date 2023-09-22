@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_book/pages/tutorialpage.dart';
 
 class FavouritesScreen extends StatelessWidget {
   const FavouritesScreen({Key? key});
@@ -36,7 +37,9 @@ class FavouritesScreen extends StatelessWidget {
                             InkWell(
                               onTap: () {
                                 // details page function
-                                print('navigating to page');
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => tutorialscreen(),
+                                ));
                               },
                               child: Container(
                                 height: 200,
