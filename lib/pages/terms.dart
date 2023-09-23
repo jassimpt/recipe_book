@@ -22,13 +22,13 @@ class Terms extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                Text('Terms and conditions',
+                const Text('Terms and conditions',
                     style:
                         TextStyle(fontSize: 26, fontWeight: FontWeight.bold)),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
-                Text(
+                const Text(
                     ''' These terms and conditions ("Terms") govern your use of the Recipe App ("App") created by Jassim pt ("Developer"). By downloading, installing, or using the App, you agree to comply with these Terms. If you do not agree with these Terms, please do not use the App.
         
         1. App Usage

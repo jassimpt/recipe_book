@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_book/colors/colors.dart';
+import 'package:recipe_book/helpers/colors.dart';
 import 'package:recipe_book/pages/editscreen.dart';
 import 'package:recipe_book/pages/tutorialpage.dart';
 

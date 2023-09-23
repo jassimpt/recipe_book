@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:recipe_book/colors/colors.dart';
+import 'package:recipe_book/helpers/colors.dart';
 import 'package:recipe_book/pages/terms.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -15,16 +15,16 @@ class SettingsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Settings',
+              const Text('Settings',
                   style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold)),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: 60,
                 child: ElevatedButton(
-                  style: ButtonStyle(
+                  style: const ButtonStyle(
                       elevation: MaterialStatePropertyAll(0),
                       shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10)))),
@@ -35,7 +35,7 @@ class SettingsScreen extends StatelessWidget {
                     ));
                     // totalcost button function
                   },
-                  child: Text(
+                  child: const Text(
                     'Terms and conditions',
                     style: TextStyle(
                         color: Colors.black,
@@ -44,14 +44,14 @@ class SettingsScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: 60,
                 child: ElevatedButton(
-                  style: ButtonStyle(
+                  style: const ButtonStyle(
                       elevation: MaterialStatePropertyAll(0),
                       shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10)))),
@@ -59,7 +59,7 @@ class SettingsScreen extends StatelessWidget {
                   onPressed: () {
                     // totalcost button function
                   },
-                  child: Text(
+                  child: const Text(
                     'Help',
                     style: TextStyle(
                         color: Colors.black,
@@ -68,14 +68,14 @@ class SettingsScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: 60,
                 child: ElevatedButton(
-                  style: ButtonStyle(
+                  style: const ButtonStyle(
                       elevation: MaterialStatePropertyAll(0),
                       shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10)))),
@@ -83,7 +83,7 @@ class SettingsScreen extends StatelessWidget {
                   onPressed: () {
                     // totalcost button function
                   },
-                  child: Text(
+                  child: const Text(
                     'About our app',
                     style: TextStyle(
                         color: Colors.black,
@@ -92,14 +92,14 @@ class SettingsScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: 60,
                 child: ElevatedButton(
-                  style: ButtonStyle(
+                  style: const ButtonStyle(
                       elevation: MaterialStatePropertyAll(0),
                       shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10)))),
@@ -108,7 +108,7 @@ class SettingsScreen extends StatelessWidget {
                     SystemNavigator.pop();
                     // totalcost button function
                   },
-                  child: Text(
+                  child: const Text(
                     'Logout',
                     style: TextStyle(
                         color: Colors.black,
@@ -117,7 +117,7 @@ class SettingsScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
             ],

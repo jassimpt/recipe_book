@@ -1,7 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:recipe_book/colors/colors.dart';
-import 'package:recipe_book/widgets/custom_text_field_in_upload.dart';
+import 'package:recipe_book/helpers/colors.dart';
 
 class editscreen extends StatefulWidget {
   const editscreen({Key? key}) : super(key: key);
@@ -83,12 +82,12 @@ class _editscreenState extends State<editscreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: ingredients.length,
-                  itemBuilder: (context, index) => addingredients(index),
+                TextFormField(
+                  maxLines: 5,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15)))),
                 ),
-                ingredientsbutton(),
                 const SizedBox(
                   height: 15,
                 ),
@@ -166,45 +165,6 @@ class _editscreenState extends State<editscreen> {
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-
-  addingredients(int index) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(vertical: 10),
-      child: CustomTextFildInUpload(
-        radius: 20,
-      ),
-    );
-  }
-
-  ingredientsbutton() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12),
-      child: InkWell(
-        onTap: () {
-          setState(() {});
-          ingredients.add(addingredients(1));
-        },
-        child: Container(
-          alignment: Alignment.center,
-          height: 50,
-          decoration: BoxDecoration(
-              border: Border.all(width: 1, color: usernamegrey),
-              borderRadius: BorderRadius.circular(25)),
-          child:
-              const Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Icon(Icons.add),
-            Text(
-              'Ingredients',
-              style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w500),
-            )
-          ]),
         ),
       ),
     );

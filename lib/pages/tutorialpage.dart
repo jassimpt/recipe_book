@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_book/colors/colors.dart';
+import 'package:recipe_book/helpers/colors.dart';
 import 'package:recipe_book/pages/totalcost.dart';
 
 class tutorialscreen extends StatelessWidget {
@@ -27,42 +27,42 @@ class tutorialscreen extends StatelessWidget {
                   },
                   icon: Image.asset('assets/icons/Arrow-Left.png'),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Text(
+                const Text(
                   'How to make French toast',
                   style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Container(
                   height: 200,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage('assets/images/foodimage1.png'),
                       fit: BoxFit.cover,
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Row(
                   children: [
-                    Text(
+                    const Text(
                       'Ingredients',
                       style:
                           TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 30,
                     ),
                     SizedBox(
                       width: 150,
                       child: ElevatedButton(
-                        style: ButtonStyle(
+                        style: const ButtonStyle(
                             elevation: MaterialStatePropertyAll(0),
                             shape: MaterialStatePropertyAll(
                                 RoundedRectangleBorder(
@@ -76,7 +76,7 @@ class tutorialscreen extends StatelessWidget {
                           ));
                           // totalcost button function
                         },
-                        child: Text(
+                        child: const Text(
                           'Total cost',
                           style: TextStyle(color: Colors.white),
                         ),
@@ -84,7 +84,7 @@ class tutorialscreen extends StatelessWidget {
                     )
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 ListView.builder(
@@ -103,7 +103,7 @@ class tutorialscreen extends StatelessWidget {
                                 'assets/icons/harvest.png',
                                 height: 40,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 20,
                               ),
                               Text(
@@ -130,35 +130,35 @@ class tutorialscreen extends StatelessWidget {
                           ),
                           height: 70,
                           width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: boxgrey,
                             borderRadius: BorderRadius.all(Radius.circular(12)),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                       ],
                     );
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Text(
+                const Text(
                   'Tutorial',
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: boxgrey,
                       borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Padding(
-                    padding: const EdgeInsets.all(15),
+                  child: const Padding(
+                    padding: EdgeInsets.all(15),
                     child: Text(
                         ''' Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown 
                     printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,

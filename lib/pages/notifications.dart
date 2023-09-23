@@ -12,36 +12,36 @@ class NotificationsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Notifications',
                 style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Container(
                   width: 100,
                   height: 30,
-                  child: Center(
+                  child: const Center(
                       child: Text(
                     'All',
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold),
                   )),
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: Colors.red,
                       borderRadius: BorderRadius.all(Radius.circular(10)))),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
-              Text(
+              const Text(
                 'Today',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 100,
               ),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [Text('No new notifications')],
               )

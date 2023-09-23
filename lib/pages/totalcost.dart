@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_book/colors/colors.dart';
+import 'package:recipe_book/helpers/colors.dart';
 
 class TotalCost extends StatelessWidget {
   const TotalCost({super.key});
@@ -7,10 +7,10 @@ class TotalCost extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Color> colors1 = [
-      Color(0xFFe23e3e),
-      Color(0xFFe86565),
-      Color(0xFFee8b8b),
-      Color(0xFFf3b2b2),
+      const Color(0xFFe23e3e),
+      const Color(0xFFe86565),
+      const Color(0xFFee8b8b),
+      const Color(0xFFf3b2b2),
     ];
 
     List ingredients = ['Beef', 'Bread', 'Eggs', 'Onion'];
@@ -29,17 +29,17 @@ class TotalCost extends StatelessWidget {
                   },
                   icon: Image.asset('assets/icons/Arrow-Left.png'),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Text('Total cost',
+                const Text('Total cost',
                     style:
                         TextStyle(fontSize: 26, fontWeight: FontWeight.bold)),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 Image.asset('assets/images/chart.png'),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 ListView.builder(
@@ -51,7 +51,7 @@ class TotalCost extends StatelessWidget {
                         Container(
                           child: Row(
                             children: [
-                              SizedBox(
+                              const SizedBox(
                                 width: 15,
                               ),
                               Container(
@@ -62,7 +62,7 @@ class TotalCost extends StatelessWidget {
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10))),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 20,
                               ),
                               Text(
@@ -70,7 +70,7 @@ class TotalCost extends StatelessWidget {
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 190,
                               ),
                               Text(price[index],
@@ -81,12 +81,12 @@ class TotalCost extends StatelessWidget {
                           ),
                           height: 70,
                           width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               color: boxgrey,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         )
                       ],

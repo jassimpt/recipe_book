@@ -1,7 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:recipe_book/colors/colors.dart';
-import 'package:recipe_book/widgets/custom_text_field_in_upload.dart';
+import 'package:recipe_book/helpers/colors.dart';
 
 class Createscreen extends StatefulWidget {
   const Createscreen({Key? key}) : super(key: key);
@@ -12,7 +11,11 @@ class Createscreen extends StatefulWidget {
 
 class _CreatescreenState extends State<Createscreen> {
   bool isFieldFocused = false;
-  List ingredients = [1];
+
+  final _foodnameconroller = TextEditingController();
+  final _descriptioncontroller = TextEditingController();
+  final _ingredientscontroller = TextEditingController();
+  final _totalcostcontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +48,8 @@ class _CreatescreenState extends State<Createscreen> {
                   height: 30,
                 ),
                 TextFormField(
+                  controller: _foodnameconroller,
+                  // foodname
                   decoration: InputDecoration(
                     hintText: 'Food Name',
                     focusedBorder: const OutlineInputBorder(
@@ -83,12 +88,14 @@ class _CreatescreenState extends State<Createscreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: ingredients.length,
-                  itemBuilder: (context, index) => addingredients(index),
+                TextFormField(
+                  controller: _ingredientscontroller,
+                  maxLines: 5,
+                  decoration: InputDecoration(
+                      hintText: 'Enter all ingredients',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15)))),
                 ),
-                ingredientsbutton(),
                 const SizedBox(
                   height: 15,
                 ),
@@ -100,6 +107,7 @@ class _CreatescreenState extends State<Createscreen> {
                   height: 20,
                 ),
                 TextFormField(
+                  controller: _descriptioncontroller,
                   // Description Field
                   maxLines: 5,
                   decoration: const InputDecoration(
@@ -108,6 +116,23 @@ class _CreatescreenState extends State<Createscreen> {
                       hintText: 'How to Prepare This?'),
                 ),
                 const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  'Total cost',
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                TextFormField(
+                  controller: _totalcostcontroller,
+                  decoration: InputDecoration(
+                      hintText: 'Enter total cost for this recipe',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15)))),
+                ),
+                SizedBox(
                   height: 20,
                 ),
                 Container(
@@ -120,7 +145,9 @@ class _CreatescreenState extends State<Createscreen> {
                                   borderRadius: BorderRadius.circular(10))),
                           backgroundColor:
                               MaterialStatePropertyAll(Colors.red)),
-                      onPressed: () {},
+                      onPressed: () {
+                        addrecipe();
+                      },
                       child: const Text(
                         'Add my recipe',
                         style: TextStyle(fontSize: 16),
@@ -171,42 +198,18 @@ class _CreatescreenState extends State<Createscreen> {
     );
   }
 
-  addingredients(int index) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(vertical: 10),
-      child: CustomTextFildInUpload(
-        radius: 20,
-      ),
-    );
-  }
+  addrecipe() async {
+    final foodname = _foodnameconroller.text.trim();
+    final ingredients = _ingredientscontroller.text.trim();
+    final totalcost = _totalcostcontroller.text.trim();
+    final description = _descriptioncontroller.text.trim();
 
-  ingredientsbutton() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12),
-      child: InkWell(
-        onTap: () {
-          setState(() {});
-          ingredients.add(addingredients(1));
-        },
-        child: Container(
-          alignment: Alignment.center,
-          height: 50,
-          decoration: BoxDecoration(
-              border: Border.all(width: 1, color: usernamegrey),
-              borderRadius: BorderRadius.circular(25)),
-          child:
-              const Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Icon(Icons.add),
-            Text(
-              'Ingredients',
-              style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w500),
-            )
-          ]),
-        ),
-      ),
-    );
+    if (foodname.isEmpty ||
+        description.isEmpty ||
+        ingredients.isEmpty ||
+        totalcost.isEmpty) {
+      return;
+    }
+    print('$foodname  $description');
   }
 }
