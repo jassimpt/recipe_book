@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_book/db/functions/db_functions.dart';
+import 'package:recipe_book/db/model/data_model.dart';
 import 'package:recipe_book/helpers/colors.dart';
 import 'package:recipe_book/pages/editscreen.dart';
 import 'package:recipe_book/pages/tutorialpage.dart';
@@ -8,6 +10,7 @@ class Homepage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    getAllRecipes();
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -50,15 +53,22 @@ class Homepage extends StatelessWidget {
                 height: 40,
               ),
               Expanded(
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.7,
-                  ),
-                  itemCount:
-                      2, // Change this to the number of grid items you want
-                  itemBuilder: (context, index) {
-                    return recipecard(context);
+                child: ValueListenableBuilder(
+                  valueListenable: recipeListNotifier,
+                  builder: (BuildContext ctx, List<RecipeModel> recipeList,
+                      Widget? child) {
+                    return GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.7,
+                      ),
+                      itemCount: recipeList.length,
+                      itemBuilder: (context, index) {
+                        final data = recipeList[index];
+                        return recipecard(context, data, index);
+                      },
+                    );
                   },
                 ),
               ),
@@ -69,7 +79,8 @@ class Homepage extends StatelessWidget {
     );
   }
 
-  recipecard(BuildContext context) {
+  recipecard(BuildContext context, data, index) {
+    bool isfavourite = favouriterecipe.contains(data);
     return InkWell(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
@@ -81,7 +92,7 @@ class Homepage extends StatelessWidget {
         child: Stack(
           children: [
             Container(
-              height: 220,
+              height: 205,
               decoration: BoxDecoration(
                 color: boxgrey,
                 borderRadius: BorderRadius.circular(12.0),
@@ -106,7 +117,18 @@ class Homepage extends StatelessWidget {
                         color: Colors.white,
                       ),
                       IconButton(
+                          onPressed: () {
+                            deleteRecipe(index);
+                          },
+                          icon: Image.asset(
+                            'assets/icons/delete.png',
+                            height: 24,
+                          )),
+                      IconButton(
                         onPressed: () {
+                          if (!isfavourite) {
+                            favouriterecipe.add(data);
+                          }
                           // Add your favorites functionality here
                         },
                         icon: Image.asset(
@@ -143,14 +165,14 @@ class Homepage extends StatelessWidget {
                 ),
               ),
             ),
-            const Positioned(
+            Positioned(
               top: 100,
               left: 0,
               right: 0,
               child: Column(
                 children: [
                   Text(
-                    'Pepper sweetcorn', // Replace with the actual food name
+                    data.foodname, // Replace with the actual food name
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 17,
@@ -159,7 +181,7 @@ class Homepage extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   Text(
-                    'Ramen', // Replace with the actual food name
+                    data.totalcost, // Replace with the actual food name
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 17,

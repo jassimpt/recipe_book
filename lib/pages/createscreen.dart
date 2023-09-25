@@ -1,6 +1,8 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:recipe_book/helpers/colors.dart';
+import 'package:recipe_book/db/functions/db_functions.dart';
+import 'package:recipe_book/db/model/data_model.dart';
+import 'package:recipe_book/pages/home.dart';
 
 class Createscreen extends StatefulWidget {
   const Createscreen({Key? key}) : super(key: key);
@@ -210,6 +212,13 @@ class _CreatescreenState extends State<Createscreen> {
         totalcost.isEmpty) {
       return;
     }
-    print('$foodname  $description');
+    // print('$foodname  $description');
+    final recipe = RecipeModel(
+        foodname: foodname,
+        ingredients: ingredients,
+        totalcost: totalcost,
+        description: description);
+    addRecipe(recipe);
+    Navigator.pop(context);
   }
 }

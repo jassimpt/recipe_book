@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_book/db/functions/db_functions.dart';
 import 'package:recipe_book/pages/tutorialpage.dart';
 
-class FavouritesScreen extends StatelessWidget {
+class FavouritesScreen extends StatefulWidget {
   const FavouritesScreen({Key? key});
 
+  @override
+  State<FavouritesScreen> createState() => _FavouritesScreenState();
+}
+
+class _FavouritesScreenState extends State<FavouritesScreen> {
   @override
   Widget build(BuildContext context) {
     List images = [
@@ -25,64 +31,76 @@ class FavouritesScreen extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: images.length,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Stack(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                // details page function
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => tutorialscreen(),
-                                ));
-                              },
-                              child: Container(
-                                height: 200,
-                                width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage(images[index]),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              top: 10,
-                              right: 10,
-                              child: Image.asset(
-                                'assets/icons/bookmark.png',
-                                height: 25,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        const Text(
-                          'How to make french toast',
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        )
-                      ],
-                    );
-                  },
-                ),
-              )
+              favouritesBuilder(images)
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Expanded favouritesBuilder(List<dynamic> images) {
+    return Expanded(
+      child: ListView.builder(
+        itemCount: favouriterecipe.length,
+        itemBuilder: (context, index) {
+          final recipe = favouriterecipe[index];
+          bool isfavourite = favouriterecipe.contains(recipe);
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      // details page function
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => tutorialscreen(),
+                      ));
+                    },
+                    child: Container(
+                      height: 200,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(images[index]),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                      top: 10,
+                      right: 10,
+                      child: IconButton(
+                          onPressed: () {
+                            if (isfavourite) {
+                              favouriterecipe.remove(recipe);
+                            }
+                            setState(() {});
+                          },
+                          icon: Image.asset(
+                            'assets/icons/bookmark.png',
+                            height: 25,
+                          ))),
+                ],
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Text(
+                recipe.foodname,
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              )
+            ],
+          );
+        },
       ),
     );
   }
