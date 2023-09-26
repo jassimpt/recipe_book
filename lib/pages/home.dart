@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:recipe_book/db/functions/db_functions.dart';
 import 'package:recipe_book/db/model/data_model.dart';
@@ -84,7 +86,7 @@ class Homepage extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => tutorialscreen(),
+          builder: (context) => tutorialscreen(recipe: data),
         ));
       },
       child: Padding(
@@ -158,8 +160,10 @@ class Homepage extends StatelessWidget {
                           offset: const Offset(0, 2))
                     ]),
                 child: ClipOval(
-                  child: Image.asset(
-                    'assets/images/food.png',
+                  child: Image(
+                    image: data.image != null
+                        ? FileImage(File(data.image!))
+                        : AssetImage('assets/image/food.png') as ImageProvider,
                     fit: BoxFit.cover,
                   ),
                 ),

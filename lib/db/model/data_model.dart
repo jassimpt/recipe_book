@@ -16,9 +16,13 @@ class RecipeModel {
   @HiveField(3)
   final String description;
 
+  @HiveField(4)
+  final String? image;
+
   RecipeModel(
       {required this.foodname,
       required this.ingredients,
       required this.totalcost,
-      required this.description});
+      required this.description,
+      required this.image});
 }

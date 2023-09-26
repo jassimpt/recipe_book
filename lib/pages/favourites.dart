@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:recipe_book/db/functions/db_functions.dart';
 import 'package:recipe_book/pages/tutorialpage.dart';
@@ -12,11 +14,6 @@ class FavouritesScreen extends StatefulWidget {
 class _FavouritesScreenState extends State<FavouritesScreen> {
   @override
   Widget build(BuildContext context) {
-    List images = [
-      'assets/images/foodimage1.png',
-      'assets/images/foodimage2.png',
-      'assets/images/foodimage3.png'
-    ];
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -31,7 +28,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
               const SizedBox(
                 height: 20,
               ),
-              favouritesBuilder(images)
+              favouritesBuilder()
             ],
           ),
         ),
@@ -39,7 +36,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
     );
   }
 
-  Expanded favouritesBuilder(List<dynamic> images) {
+  Expanded favouritesBuilder() {
     return Expanded(
       child: ListView.builder(
         itemCount: favouriterecipe.length,
@@ -55,15 +52,27 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                     onTap: () {
                       // details page function
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => tutorialscreen(),
+                        builder: (context) => tutorialscreen(recipe: recipe),
                       ));
                     },
                     child: Container(
                       height: 200,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.6),
+                            spreadRadius: 3,
+                            blurRadius: 4,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
                         image: DecorationImage(
-                          image: AssetImage(images[index]),
+                          image: recipe.image != null
+                              ? FileImage(File(recipe.image!))
+                              : AssetImage('assets/images/no-image.jpg')
+                                  as ImageProvider,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -91,7 +100,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
               Text(
                 recipe.foodname,
                 style: TextStyle(
-                  fontSize: 22,
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),

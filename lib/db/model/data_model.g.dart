@@ -21,13 +21,14 @@ class RecipeModelAdapter extends TypeAdapter<RecipeModel> {
       ingredients: fields[1] as String,
       totalcost: fields[2] as String,
       description: fields[3] as String,
+      image: fields[4] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, RecipeModel obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.foodname)
       ..writeByte(1)
@@ -35,7 +36,9 @@ class RecipeModelAdapter extends TypeAdapter<RecipeModel> {
       ..writeByte(2)
       ..write(obj.totalcost)
       ..writeByte(3)
-      ..write(obj.description);
+      ..write(obj.description)
+      ..writeByte(4)
+      ..write(obj.image);
   }
 
   @override

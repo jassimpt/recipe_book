@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:recipe_book/db/functions/db_functions.dart';
 import 'package:recipe_book/db/model/data_model.dart';
 import 'package:recipe_book/pages/home.dart';
@@ -14,10 +17,11 @@ class Createscreen extends StatefulWidget {
 class _CreatescreenState extends State<Createscreen> {
   bool isFieldFocused = false;
 
-  final _foodnameconroller = TextEditingController();
-  final _descriptioncontroller = TextEditingController();
-  final _ingredientscontroller = TextEditingController();
-  final _totalcostcontroller = TextEditingController();
+  final _foodnameController = TextEditingController();
+  final _descriptionController = TextEditingController();
+  final _ingredientsController = TextEditingController();
+  final _totalCostController = TextEditingController();
+  File? selectedimage;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +54,7 @@ class _CreatescreenState extends State<Createscreen> {
                   height: 30,
                 ),
                 TextFormField(
-                  controller: _foodnameconroller,
+                  controller: _foodnameController,
                   // foodname
                   decoration: InputDecoration(
                     hintText: 'Food Name',
@@ -91,10 +95,10 @@ class _CreatescreenState extends State<Createscreen> {
                   height: 20,
                 ),
                 TextFormField(
-                  controller: _ingredientscontroller,
+                  controller: _ingredientsController,
                   maxLines: 5,
                   decoration: InputDecoration(
-                      hintText: 'Enter all ingredients',
+                      hintText: 'Enter all ingredients with comma seperated',
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(15)))),
                 ),
@@ -109,7 +113,7 @@ class _CreatescreenState extends State<Createscreen> {
                   height: 20,
                 ),
                 TextFormField(
-                  controller: _descriptioncontroller,
+                  controller: _descriptionController,
                   // Description Field
                   maxLines: 5,
                   decoration: const InputDecoration(
@@ -128,7 +132,7 @@ class _CreatescreenState extends State<Createscreen> {
                   height: 20,
                 ),
                 TextFormField(
-                  controller: _totalcostcontroller,
+                  controller: _totalCostController,
                   decoration: InputDecoration(
                       hintText: 'Enter total cost for this recipe',
                       border: OutlineInputBorder(
@@ -141,19 +145,22 @@ class _CreatescreenState extends State<Createscreen> {
                   height: 60,
                   width: 385,
                   child: ElevatedButton(
-                      style: ButtonStyle(
-                          shape: MaterialStatePropertyAll(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10))),
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.red)),
-                      onPressed: () {
-                        addrecipe();
-                      },
-                      child: const Text(
-                        'Add my recipe',
-                        style: TextStyle(fontSize: 16),
-                      )),
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      backgroundColor: MaterialStateProperty.all(Colors.red),
+                    ),
+                    onPressed: () {
+                      addrecipe();
+                    },
+                    child: const Text(
+                      'Add my recipe',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
                 )
               ],
             ),
@@ -166,33 +173,76 @@ class _CreatescreenState extends State<Createscreen> {
   addcoverphoto() {
     return InkWell(
       onTap: () {
-        // add image to hive
-      },
-      child: DottedBorder(
-        dashPattern: const [15, 5],
-        color: Colors.grey,
-        strokeWidth: 2,
-        borderType: BorderType.RRect,
-        radius: const Radius.circular(10),
-        child: const SizedBox(
-          width: double.infinity,
-          height: 160,
-          child: Padding(
-            padding: EdgeInsets.all(20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        showModalBottomSheet(
+          context: context,
+          builder: (BuildContext context) {
+            return Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(
-                  Icons.photo,
-                  size: 65,
-                  color: Colors.grey,
+                ListTile(
+                  leading: Image.asset(
+                    'assets/icons/gallery.png',
+                    height: 40,
+                  ),
+                  title: Text('Gallery'),
+                  onTap: () {
+                    pickImage(source: ImageSource.gallery);
+                    //handle gallery
+                    Navigator.pop(context);
+                  },
                 ),
-                Text(
-                  'Add cover photo',
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                ListTile(
+                  leading: Image.asset(
+                    'assets/icons/camera.png',
+                    height: 40,
+                  ),
+                  title: Text('Camera'),
+                  onTap: () {
+                    pickImage(source: ImageSource.camera);
+                    // Handle camera function
+                    Navigator.pop(context);
+                  },
                 ),
-                Text('up to 12 mb')
               ],
+            );
+          },
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: selectedimage != null
+                    ? FileImage(
+                        selectedimage!,
+                      )
+                    : AssetImage('assets/images/no-image.jpg') as ImageProvider,
+                fit: BoxFit.cover)),
+        child: DottedBorder(
+          dashPattern: const [15, 5],
+          color: Colors.grey,
+          strokeWidth: 2,
+          borderType: BorderType.RRect,
+          radius: const Radius.circular(10),
+          child: const SizedBox(
+            width: double.infinity,
+            height: 160,
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Icon(
+                    Icons.photo,
+                    size: 65,
+                    color: Colors.grey,
+                  ),
+                  Text(
+                    'Add cover photo',
+                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                  ),
+                  Text('up to 12 mb')
+                ],
+              ),
             ),
           ),
         ),
@@ -200,11 +250,19 @@ class _CreatescreenState extends State<Createscreen> {
     );
   }
 
-  addrecipe() async {
-    final foodname = _foodnameconroller.text.trim();
-    final ingredients = _ingredientscontroller.text.trim();
-    final totalcost = _totalcostcontroller.text.trim();
-    final description = _descriptioncontroller.text.trim();
+  pickImage({required source}) async {
+    final returnedimage = await ImagePicker().pickImage(source: source);
+
+    setState(() {
+      selectedimage = File(returnedimage!.path);
+    });
+  }
+
+  void addrecipe() async {
+    final foodname = _foodnameController.text.trim();
+    final ingredients = _ingredientsController.text.trim();
+    final totalcost = _totalCostController.text.trim();
+    final description = _descriptionController.text.trim();
 
     if (foodname.isEmpty ||
         description.isEmpty ||
@@ -212,12 +270,14 @@ class _CreatescreenState extends State<Createscreen> {
         totalcost.isEmpty) {
       return;
     }
-    // print('$foodname  $description');
+
     final recipe = RecipeModel(
+        image: selectedimage!.path,
         foodname: foodname,
         ingredients: ingredients,
         totalcost: totalcost,
         description: description);
+
     addRecipe(recipe);
     Navigator.pop(context);
   }

@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_book/db/model/data_model.dart';
 import 'package:recipe_book/helpers/colors.dart';
 import 'package:recipe_book/pages/totalcost.dart';
 
 class tutorialscreen extends StatelessWidget {
-  const tutorialscreen({super.key});
-
+  tutorialscreen({super.key, required this.recipe});
+  RecipeModel recipe;
   @override
   Widget build(BuildContext context) {
-    List<String> ingredients = [
-      'Bread',
-      'Egg',
-      'Beef',
-    ];
+    List ingredients = recipe.ingredients.split(',');
 
     return Scaffold(
       body: SafeArea(
@@ -30,8 +27,8 @@ class tutorialscreen extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                const Text(
-                  'How to make French toast',
+                Text(
+                  'How to make ${recipe.foodname}',
                   style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
@@ -115,16 +112,6 @@ class tutorialscreen extends StatelessWidget {
                               ),
                               SizedBox(
                                 width: 200,
-                              ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text('200g'),
-                                  SizedBox(
-                                    height: 8,
-                                  ),
-                                  Text('100 rs'),
-                                ],
                               ),
                             ],
                           ),
