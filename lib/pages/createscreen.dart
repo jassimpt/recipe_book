@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -279,6 +280,16 @@ class _CreatescreenState extends State<Createscreen> {
         description: description);
 
     addRecipe(recipe);
-    Navigator.pop(context);
+
+    final snackBar = SnackBar(
+      elevation: 0,
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Colors.transparent,
+      content: AwesomeSnackbarContent(
+          title: 'Oh Hey!!',
+          message: 'You successfully added your magic recipe',
+          contentType: ContentType.failure),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

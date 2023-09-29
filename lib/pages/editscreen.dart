@@ -1,15 +1,53 @@
+import 'dart:io';
+
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:recipe_book/db/functions/db_functions.dart';
+import 'package:recipe_book/db/model/data_model.dart';
 import 'package:recipe_book/helpers/colors.dart';
 
 class editscreen extends StatefulWidget {
-  const editscreen({Key? key}) : super(key: key);
+  const editscreen(
+      {Key? key,
+      required this.foodname,
+      required this.ingredients,
+      required this.description,
+      required this.totalcost,
+      required this.image,
+      required this.index})
+      : super(key: key);
+
+  final String foodname;
+  final String ingredients;
+  final String description;
+  final String totalcost;
+  final dynamic image;
+  final int index;
 
   @override
   _editscreenState createState() => _editscreenState();
 }
 
 class _editscreenState extends State<editscreen> {
+  final TextEditingController foodnamecontroller = TextEditingController();
+  final TextEditingController ingredientscontroller = TextEditingController();
+  final TextEditingController descriptioncontroller = TextEditingController();
+  final TextEditingController totalcostcontroller = TextEditingController();
+
+  File? selectedimage;
+
+  @override
+  void initState() {
+    foodnamecontroller.text = widget.foodname;
+    ingredientscontroller.text = widget.ingredients;
+    descriptioncontroller.text = widget.description;
+    totalcostcontroller.text = widget.totalcost;
+    selectedimage = widget.image != null ? File(widget.image) : null;
+    super.initState();
+  }
+
   bool isFieldFocused = false;
   List ingredients = [1];
 
@@ -44,6 +82,7 @@ class _editscreenState extends State<editscreen> {
                   height: 30,
                 ),
                 TextFormField(
+                  controller: foodnamecontroller,
                   decoration: InputDecoration(
                     hintText: 'Food Name',
                     focusedBorder: const OutlineInputBorder(
@@ -83,8 +122,10 @@ class _editscreenState extends State<editscreen> {
                   height: 20,
                 ),
                 TextFormField(
+                  controller: ingredientscontroller,
                   maxLines: 5,
                   decoration: InputDecoration(
+                      hintText: 'Enter all ingredients with comma seperated',
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(15)))),
                 ),
@@ -99,7 +140,7 @@ class _editscreenState extends State<editscreen> {
                   height: 20,
                 ),
                 TextFormField(
-                  // Description Field
+                  controller: descriptioncontroller,
                   maxLines: 5,
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(
@@ -107,6 +148,23 @@ class _editscreenState extends State<editscreen> {
                       hintText: 'How to Prepare This?'),
                 ),
                 const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  'Total cost',
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                TextFormField(
+                  controller: totalcostcontroller,
+                  decoration: InputDecoration(
+                      hintText: 'Enter total cost for this recipe',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15)))),
+                ),
+                SizedBox(
                   height: 20,
                 ),
                 Container(
@@ -119,7 +177,7 @@ class _editscreenState extends State<editscreen> {
                                   borderRadius: BorderRadius.circular(10))),
                           backgroundColor:
                               MaterialStatePropertyAll(Colors.red)),
-                      onPressed: () {},
+                      onPressed: () => updateRecipe(),
                       child: const Text(
                         'Update my recipe',
                         style: TextStyle(fontSize: 16),
@@ -136,37 +194,122 @@ class _editscreenState extends State<editscreen> {
   addcoverphoto() {
     return InkWell(
       onTap: () {
-        // add image to hive
-      },
-      child: DottedBorder(
-        dashPattern: const [15, 5],
-        color: Colors.grey,
-        strokeWidth: 2,
-        borderType: BorderType.RRect,
-        radius: const Radius.circular(10),
-        child: const SizedBox(
-          width: double.infinity,
-          height: 160,
-          child: Padding(
-            padding: EdgeInsets.all(20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        showModalBottomSheet(
+          context: context,
+          builder: (BuildContext context) {
+            return Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(
-                  Icons.photo,
-                  size: 65,
-                  color: Colors.grey,
+                ListTile(
+                  leading: Image.asset(
+                    'assets/icons/gallery.png',
+                    height: 40,
+                  ),
+                  title: Text('Gallery'),
+                  onTap: () {
+                    pickImage(source: ImageSource.gallery);
+                    //handle gallery
+                    Navigator.pop(context);
+                  },
                 ),
-                Text(
-                  'Add cover photo',
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                ListTile(
+                  leading: Image.asset(
+                    'assets/icons/camera.png',
+                    height: 40,
+                  ),
+                  title: Text('Camera'),
+                  onTap: () {
+                    pickImage(source: ImageSource.camera);
+                    // Handle camera function
+                    Navigator.pop(context);
+                  },
                 ),
-                Text('up to 12 mb')
               ],
+            );
+          },
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: selectedimage != null
+                    ? FileImage(
+                        selectedimage!,
+                      )
+                    : AssetImage('assets/images/no-image.jpg') as ImageProvider,
+                fit: BoxFit.cover)),
+        child: DottedBorder(
+          dashPattern: const [15, 5],
+          color: Colors.grey,
+          strokeWidth: 2,
+          borderType: BorderType.RRect,
+          radius: const Radius.circular(10),
+          child: const SizedBox(
+            width: double.infinity,
+            height: 160,
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Icon(
+                    Icons.photo,
+                    size: 65,
+                    color: Colors.grey,
+                  ),
+                  Text(
+                    'Add cover photo',
+                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                  ),
+                  Text('up to 12 mb')
+                ],
+              ),
             ),
           ),
         ),
       ),
     );
+  }
+
+  pickImage({required source}) async {
+    final returnedimage = await ImagePicker().pickImage(source: source);
+
+    setState(() {
+      selectedimage = File(returnedimage!.path);
+    });
+  }
+
+  updateRecipe() {
+    final edited_foodname = foodnamecontroller.text.trim();
+    final edited_ingredients = ingredientscontroller.text.trim();
+    final edited_description = descriptioncontroller.text.trim();
+    final edited_totalcost = totalcostcontroller.text.trim();
+    final edited_image = selectedimage?.path;
+
+    if (edited_foodname.isEmpty ||
+        edited_ingredients.isEmpty ||
+        edited_description.isEmpty ||
+        edited_totalcost.isEmpty) {
+      return;
+    }
+    final updated_recipe = RecipeModel(
+        foodname: edited_foodname,
+        ingredients: edited_ingredients,
+        totalcost: edited_totalcost,
+        description: edited_description,
+        image: edited_image);
+
+    editRecipe(widget.index, updated_recipe);
+    Navigator.pop(context);
+    final snackBar = SnackBar(
+      elevation: 0,
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Colors.transparent,
+      content: AwesomeSnackbarContent(
+          title: 'Wohoo!!',
+          message: 'You successfully updated your magic recipe',
+          contentType: ContentType.warning),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

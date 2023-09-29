@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_book/widgets/bottomnav.dart';
+import 'package:recipe_book/widgets/bottom_nav.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -84,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             onPressed: () {
                               Navigator.of(context)
                                   .pushReplacement(MaterialPageRoute(
-                                builder: (context) => Bottomnav(),
+                                builder: (context) => bottom_nav(),
                               ));
                             },
                             child: const Padding(

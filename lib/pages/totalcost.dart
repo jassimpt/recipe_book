@@ -23,12 +23,6 @@ class TotalCost extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Image.asset('assets/icons/Arrow-Left.png'),
-                ),
                 const SizedBox(
                   height: 20,
                 ),

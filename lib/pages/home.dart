@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:recipe_book/db/functions/db_functions.dart';
 import 'package:recipe_book/db/model/data_model.dart';
 import 'package:recipe_book/helpers/colors.dart';
 import 'package:recipe_book/pages/editscreen.dart';
+import 'package:recipe_book/pages/terms.dart';
 import 'package:recipe_book/pages/tutorialpage.dart';
 
 class Homepage extends StatelessWidget {
@@ -15,18 +17,165 @@ class Homepage extends StatelessWidget {
     getAllRecipes();
     return SafeArea(
       child: Scaffold(
+        endDrawer: Drawer(
+          child: ListView(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text('Settings',
+                    style:
+                        TextStyle(fontSize: 26, fontWeight: FontWeight.bold)),
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              SizedBox(
+                height: 50,
+                child: ElevatedButton(
+                  style: const ButtonStyle(
+                      elevation: MaterialStatePropertyAll(0),
+                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)))),
+                      backgroundColor: MaterialStatePropertyAll(boxgrey)),
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => Terms(),
+                    ));
+                    // totalcost button function
+                  },
+                  child: const Text(
+                    'Terms and conditions',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: 50,
+                child: ElevatedButton(
+                  style: const ButtonStyle(
+                      elevation: MaterialStatePropertyAll(0),
+                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)))),
+                      backgroundColor: MaterialStatePropertyAll(boxgrey)),
+                  onPressed: () {
+                    // totalcost button function
+                  },
+                  child: const Text(
+                    'Help',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: 50,
+                child: ElevatedButton(
+                  style: const ButtonStyle(
+                      elevation: MaterialStatePropertyAll(0),
+                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)))),
+                      backgroundColor: MaterialStatePropertyAll(boxgrey)),
+                  onPressed: () {
+                    // totalcost button function
+                  },
+                  child: const Text(
+                    'About our app',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: 50,
+                child: ElevatedButton(
+                  style: const ButtonStyle(
+                      elevation: MaterialStatePropertyAll(0),
+                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)))),
+                      backgroundColor: MaterialStatePropertyAll(boxgrey)),
+                  onPressed: () {
+                    SystemNavigator.pop();
+                    // totalcost button function
+                  },
+                  child: const Text(
+                    'Logout',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              Center(
+                  child: Text(
+                'Version 1.0.1',
+                style: TextStyle(fontSize: 15),
+              ))
+            ],
+          ),
+        ),
         body: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Roberta Anny ',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: usernamegrey,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Roberta Anny ', // username
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: usernamegrey,
+                    ),
+                  ),
+                  Builder(builder: (context) {
+                    return Container(
+                      child: IconButton(
+                          onPressed: () {
+                            Scaffold.of(context).openEndDrawer();
+                          },
+                          icon: Image.asset(
+                            'assets/images/menu.png',
+                            height: 20,
+                          )),
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black12,
+                                offset: Offset(0, 3),
+                                blurRadius: 8)
+                          ]),
+                    );
+                  })
+                ],
               ),
               const SizedBox(
                 height: 20,
@@ -82,7 +231,6 @@ class Homepage extends StatelessWidget {
   }
 
   recipecard(BuildContext context, data, index) {
-    bool isfavourite = favouriterecipe.contains(data);
     return InkWell(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
@@ -108,7 +256,13 @@ class Homepage extends StatelessWidget {
                       IconButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => editscreen(),
+                            builder: (context) => editscreen(
+                                description: data.description,
+                                foodname: data.foodname,
+                                index: index,
+                                ingredients: data.ingredients,
+                                totalcost: data.totalcost,
+                                image: data.image),
                           ));
                           // Add your edit functionality here
                         },
@@ -128,9 +282,7 @@ class Homepage extends StatelessWidget {
                           )),
                       IconButton(
                         onPressed: () {
-                          if (!isfavourite) {
-                            favouriterecipe.add(data);
-                          }
+                          addtofavourites(data);
                           // Add your favorites functionality here
                         },
                         icon: Image.asset(

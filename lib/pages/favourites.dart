@@ -42,7 +42,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
         itemCount: favouriterecipe.length,
         itemBuilder: (context, index) {
           final recipe = favouriterecipe[index];
-          bool isfavourite = favouriterecipe.contains(recipe);
+
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -82,12 +82,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                       top: 10,
                       right: 10,
                       child: IconButton(
-                          onPressed: () {
-                            if (isfavourite) {
-                              favouriterecipe.remove(recipe);
-                            }
-                            setState(() {});
-                          },
+                          onPressed: () {},
                           icon: Image.asset(
                             'assets/icons/bookmark.png',
                             height: 25,

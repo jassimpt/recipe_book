@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:recipe_book/db/model/data_model.dart';
 import 'package:recipe_book/helpers/colors.dart';
@@ -36,9 +38,21 @@ class tutorialscreen extends StatelessWidget {
                 ),
                 Container(
                   height: 200,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0x000000).withOpacity(1),
+                        spreadRadius: -9,
+                        blurRadius: 12,
+                        offset: Offset(2, 0),
+                      ),
+                    ],
+                    borderRadius: BorderRadius.all(Radius.circular(12)),
                     image: DecorationImage(
-                      image: AssetImage('assets/images/foodimage1.png'),
+                      image: recipe.image != null
+                          ? FileImage(File(recipe.image!))
+                          : AssetImage('assets/images/no-image.jpg')
+                              as ImageProvider,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -53,32 +67,6 @@ class tutorialscreen extends StatelessWidget {
                       style:
                           TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(
-                      width: 30,
-                    ),
-                    SizedBox(
-                      width: 150,
-                      child: ElevatedButton(
-                        style: const ButtonStyle(
-                            elevation: MaterialStatePropertyAll(0),
-                            shape: MaterialStatePropertyAll(
-                                RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)))),
-                            backgroundColor:
-                                MaterialStatePropertyAll(Colors.red)),
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => TotalCost(),
-                          ));
-                          // totalcost button function
-                        },
-                        child: const Text(
-                          'Total cost',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    )
                   ],
                 ),
                 const SizedBox(
@@ -141,16 +129,24 @@ class tutorialscreen extends StatelessWidget {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  decoration: const BoxDecoration(
+                  constraints: BoxConstraints(minHeight: 150),
+                  decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0x000000).withOpacity(1),
+                          spreadRadius: -9,
+                          blurRadius: 12,
+                          offset: Offset(2, 0),
+                        ),
+                      ],
                       color: boxgrey,
                       borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: const Padding(
+                  child: Padding(
                     padding: EdgeInsets.all(15),
                     child: Text(
-                        ''' Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown 
-                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-                     but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-                     and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum'''),
+                      recipe.description,
+                      style: TextStyle(fontSize: 18),
+                    ),
                   ),
                 ),
               ],
