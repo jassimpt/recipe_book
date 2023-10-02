@@ -14,27 +14,27 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.red,
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 50, left: 8),
-            child: Image.asset(
-              'assets/images/design-cooking-bg.png',
-              height: 400,
-              width: 400,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 50, left: 8),
+              child: Image.asset(
+                'assets/images/design-cooking-bg.png',
+                height: 400,
+                width: 400,
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Expanded(
-            child: Container(
+            const SizedBox(height: 20),
+            Container(
               width: MediaQuery.of(context).size.width,
               decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 245, 245, 245),
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(50),
-                      topRight: Radius.circular(50))),
+                color: Color.fromARGB(255, 245, 245, 245),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(50),
+                  topRight: Radius.circular(50),
+                ),
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(40),
                 child: Column(
@@ -45,64 +45,57 @@ class _LoginScreenState extends State<LoginScreen> {
                       style:
                           TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
                     ),
-                    const Text('Inspire you to',
-                        style: TextStyle(
-                            fontSize: 36, fontWeight: FontWeight.bold)),
-                    const Text('do more!',
-                        style: TextStyle(
-                            fontSize: 36, fontWeight: FontWeight.bold)),
-                    const SizedBox(
-                      height: 30,
+                    const Text(
+                      'Inspire you to',
+                      style:
+                          TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
                     ),
-
-                    // USERNAME TEXTFIELD
-
-                    Column(
-                      children: [
-                        TextFormField(
-                          decoration: InputDecoration(
-                              fillColor: Colors.white,
-                              filled: true,
-                              hintText: 'Username',
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15))),
+                    const Text(
+                      'do more!',
+                      style:
+                          TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 30),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
+                        hintText: 'Username',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
                         ),
-                        const SizedBox(
-                          height: 30,
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                    SizedBox(
+                      height: 50,
+                      width: 350,
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          shape:
+                              MaterialStatePropertyAll(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          )),
+                          backgroundColor: MaterialStatePropertyAll(Colors.red),
                         ),
-
-                        // LOGIN BUTTON
-
-                        ElevatedButton(
-                            style: ButtonStyle(
-                                shape: MaterialStatePropertyAll(
-                                    RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10))),
-                                backgroundColor:
-                                    MaterialStatePropertyAll(Colors.red)),
-                            onPressed: () {
-                              Navigator.of(context)
-                                  .pushReplacement(MaterialPageRoute(
-                                builder: (context) => bottom_nav(),
-                              ));
-                            },
-                            child: const Padding(
-                              padding: EdgeInsets.only(
-                                  top: 15, bottom: 15, left: 110, right: 110),
-                              child: Text(
-                                'Login Now',
-                                style: TextStyle(fontSize: 16),
-                              ),
-                            ))
-                      ],
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
+                            builder: (context) => bottom_nav(),
+                          ));
+                        },
+                        child: Text(
+                          'Login Now',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
                     ),
                   ],
                 ),
               ),
             ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

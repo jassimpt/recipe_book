@@ -2,9 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:recipe_book/db/functions/db_functions.dart';
 import 'package:recipe_book/db/model/data_model.dart';
 import 'package:recipe_book/helpers/colors.dart';
+import 'package:recipe_book/pages/createscreen.dart';
 import 'package:recipe_book/pages/editscreen.dart';
 import 'package:recipe_book/pages/terms.dart';
 import 'package:recipe_book/pages/tutorialpage.dart';
@@ -191,14 +193,29 @@ class Homepage extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              TextFormField(
-                // Search Field
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(12)),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      // Search Field
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                        ),
+                        hintText: 'Search your item',
+                      ),
+                    ),
                   ),
-                  hintText: 'Search your item',
-                ),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Createscreen(),
+                            ));
+                      },
+                      icon: Image.asset('assets/icons/produt_add.png')),
+                ],
               ),
               const SizedBox(
                 height: 40,
@@ -274,7 +291,7 @@ class Homepage extends StatelessWidget {
                       ),
                       IconButton(
                           onPressed: () {
-                            deleteRecipe(index);
+                            deleterecipe(index, context);
                           },
                           icon: Image.asset(
                             'assets/icons/delete.png',
@@ -352,5 +369,21 @@ class Homepage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  deleterecipe(index, context) {
+    QuickAlert.show(
+        context: context,
+        type: QuickAlertType.confirm,
+        text: 'Do yo want to delete',
+        confirmBtnText: 'Yes',
+        cancelBtnText: 'No',
+        cancelBtnTextStyle: TextStyle(color: Colors.red),
+        confirmBtnColor: Colors.green,
+        onConfirmBtnTap: () {
+          deleteRecipe(index);
+          Navigator.pop(context);
+        },
+        customAsset: 'assets/images/deleting.gif');
   }
 }

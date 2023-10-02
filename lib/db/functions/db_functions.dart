@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:recipe_book/db/model/data_model.dart';
 import 'package:recipe_book/pages/favourites.dart';
 
@@ -30,6 +31,7 @@ deleteRecipe(int id) async {
   final recipeDB = await Hive.openBox<RecipeModel>('recipe_db');
   recipeDB.deleteAt(id);
   getAllRecipes();
+
   print('recipe deleted successfully');
 }
 

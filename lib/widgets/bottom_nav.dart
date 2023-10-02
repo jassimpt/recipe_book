@@ -1,7 +1,6 @@
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:recipe_book/helpers/colors.dart';
-import 'package:recipe_book/pages/createscreen.dart';
+
 import 'package:recipe_book/pages/favourites.dart';
 import 'package:recipe_book/pages/home.dart';
 import 'package:recipe_book/pages/notifications.dart';
@@ -25,7 +24,6 @@ class _bottom_navState extends State<bottom_nav> {
   List pages = [
     Homepage(),
     FavouritesScreen(),
-    Createscreen(),
     NotificationsScreen(),
     TotalCost()
   ];
@@ -64,12 +62,6 @@ class _bottom_navState extends State<bottom_nav> {
                     height: 30,
                   ),
                 ),
-                DotNavigationBarItem(
-                    icon: Image.asset(
-                  'assets/icons/add.png',
-                  color: Colors.white,
-                  height: 30,
-                )),
                 DotNavigationBarItem(
                   icon: Image.asset(
                     'assets/icons/notification (1).png',
