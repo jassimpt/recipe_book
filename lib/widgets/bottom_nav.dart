@@ -1,10 +1,10 @@
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
-import 'package:recipe_book/pages/favourites.dart';
-import 'package:recipe_book/pages/home.dart';
+import 'package:recipe_book/pages/Favourites.dart';
+import 'package:recipe_book/pages/Home.dart';
 import 'package:recipe_book/pages/notifications.dart';
-import 'package:recipe_book/pages/totalcost.dart';
+import 'package:recipe_book/pages/total_cost.dart';
 
 class bottom_nav extends StatefulWidget {
   const bottom_nav({super.key});

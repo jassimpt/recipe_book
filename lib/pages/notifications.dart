@@ -8,7 +8,7 @@ class NotificationsScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -22,15 +22,15 @@ class NotificationsScreen extends StatelessWidget {
               Container(
                   width: 100,
                   height: 30,
+                  decoration: const BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: const Center(
                       child: Text(
                     'All',
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold),
-                  )),
-                  decoration: const BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.all(Radius.circular(10)))),
+                  ))),
               const SizedBox(
                 height: 30,
               ),

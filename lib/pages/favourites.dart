@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:recipe_book/db/functions/db_functions.dart';
-import 'package:recipe_book/pages/tutorialpage.dart';
+import 'package:recipe_book/pages/tutorial.dart';
 
 class FavouritesScreen extends StatefulWidget {
-  const FavouritesScreen({Key? key});
+  const FavouritesScreen({super.key});
 
   @override
   State<FavouritesScreen> createState() => _FavouritesScreenState();
@@ -50,9 +50,8 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                 children: [
                   InkWell(
                     onTap: () {
-                      // details page function
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => tutorialscreen(recipe: recipe),
+                        builder: (context) => TutorialScreen(recipe: recipe),
                       ));
                     },
                     child: Container(
@@ -64,14 +63,15 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                             color: Colors.grey.withOpacity(0.6),
                             spreadRadius: 3,
                             blurRadius: 4,
-                            offset: Offset(0, 3),
+                            offset: const Offset(0, 3),
                           ),
                         ],
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
                         image: DecorationImage(
                           image: recipe.image != null
                               ? FileImage(File(recipe.image!))
-                              : AssetImage('assets/images/no-image.jpg')
+                              : const AssetImage('assets/images/no-image.jpg')
                                   as ImageProvider,
                           fit: BoxFit.cover,
                         ),

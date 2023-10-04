@@ -1,18 +1,54 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:recipe_book/db/functions/db_functions.dart';
 import 'package:recipe_book/db/model/data_model.dart';
 import 'package:recipe_book/helpers/colors.dart';
-import 'package:recipe_book/pages/createscreen.dart';
-import 'package:recipe_book/pages/editscreen.dart';
+import 'package:recipe_book/pages/create_screen.dart';
+import 'package:recipe_book/pages/edit_screen.dart';
 import 'package:recipe_book/pages/terms.dart';
-import 'package:recipe_book/pages/tutorialpage.dart';
+import 'package:recipe_book/pages/tutorial.dart';
 
-class Homepage extends StatelessWidget {
-  const Homepage({Key? key});
+class Homepage extends StatefulWidget {
+  const Homepage({super.key});
+
+  @override
+  State<Homepage> createState() => _HomepageState();
+}
+
+class _HomepageState extends State<Homepage> {
+  List<RecipeModel> _foundrecipes = [];
+
+  loadrecipes() async {
+    final allrecipes = recipeListNotifier.value;
+    setState(() {
+      _foundrecipes = allrecipes;
+    });
+  }
+
+  @override
+  void initState() {
+    loadrecipes();
+    super.initState();
+  }
+
+  _filter(String enteredName) {
+    List<RecipeModel> result = [];
+
+    if (enteredName.isEmpty) {
+      result = recipeListNotifier.value;
+    } else {
+      result = recipeListNotifier.value
+          .where((RecipeModel recipe) =>
+              recipe.foodname.toLowerCase().contains(enteredName.toLowerCase()))
+          .toList();
+    }
+
+    setState(() {
+      _foundrecipes = result;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +58,13 @@ class Homepage extends StatelessWidget {
         endDrawer: Drawer(
           child: ListView(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(20),
+              const Padding(
+                padding: EdgeInsets.all(20),
                 child: Text('Settings',
                     style:
                         TextStyle(fontSize: 26, fontWeight: FontWeight.bold)),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               SizedBox(
@@ -43,7 +79,6 @@ class Homepage extends StatelessWidget {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => Terms(),
                     ));
-                    // totalcost button function
                   },
                   child: const Text(
                     'Terms and conditions',
@@ -66,9 +101,7 @@ class Homepage extends StatelessWidget {
                       shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10)))),
                       backgroundColor: MaterialStatePropertyAll(boxgrey)),
-                  onPressed: () {
-                    // totalcost button function
-                  },
+                  onPressed: () {},
                   child: const Text(
                     'Help',
                     style: TextStyle(
@@ -90,9 +123,7 @@ class Homepage extends StatelessWidget {
                       shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10)))),
                       backgroundColor: MaterialStatePropertyAll(boxgrey)),
-                  onPressed: () {
-                    // totalcost button function
-                  },
+                  onPressed: () {},
                   child: const Text(
                     'About our app',
                     style: TextStyle(
@@ -116,7 +147,6 @@ class Homepage extends StatelessWidget {
                       backgroundColor: MaterialStatePropertyAll(boxgrey)),
                   onPressed: () {
                     SystemNavigator.pop();
-                    // totalcost button function
                   },
                   child: const Text(
                     'Logout',
@@ -127,10 +157,10 @@ class Homepage extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
-              Center(
+              const Center(
                   child: Text(
                 'Version 1.0.1',
                 style: TextStyle(fontSize: 15),
@@ -139,15 +169,15 @@ class Homepage extends StatelessWidget {
           ),
         ),
         body: Padding(
-          padding: EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Roberta Anny ', // username
+                  const Text(
+                    'Roberta Anny ',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -156,17 +186,9 @@ class Homepage extends StatelessWidget {
                   ),
                   Builder(builder: (context) {
                     return Container(
-                      child: IconButton(
-                          onPressed: () {
-                            Scaffold.of(context).openEndDrawer();
-                          },
-                          icon: Image.asset(
-                            'assets/images/menu.png',
-                            height: 20,
-                          )),
                       height: 40,
                       width: 40,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: Colors.white,
                           shape: BoxShape.circle,
                           boxShadow: [
@@ -175,6 +197,14 @@ class Homepage extends StatelessWidget {
                                 offset: Offset(0, 3),
                                 blurRadius: 8)
                           ]),
+                      child: IconButton(
+                          onPressed: () {
+                            Scaffold.of(context).openEndDrawer();
+                          },
+                          icon: Image.asset(
+                            'assets/images/menu.png',
+                            height: 20,
+                          )),
                     );
                   })
                 ],
@@ -197,7 +227,7 @@ class Homepage extends StatelessWidget {
                 children: [
                   Expanded(
                     child: TextFormField(
-                      // Search Field
+                      onChanged: (value) => _filter(value),
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(12)),
@@ -218,7 +248,7 @@ class Homepage extends StatelessWidget {
                 ],
               ),
               const SizedBox(
-                height: 40,
+                height: 20,
               ),
               Expanded(
                 child: ValueListenableBuilder(
@@ -229,11 +259,11 @@ class Homepage extends StatelessWidget {
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        childAspectRatio: 0.7,
+                        childAspectRatio: 0.75,
                       ),
-                      itemCount: recipeList.length,
+                      itemCount: _foundrecipes.length,
                       itemBuilder: (context, index) {
-                        final data = recipeList[index];
+                        final data = _foundrecipes[index];
                         return recipecard(context, data, index);
                       },
                     );
@@ -251,7 +281,7 @@ class Homepage extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => tutorialscreen(recipe: data),
+          builder: (context) => TutorialScreen(recipe: data),
         ));
       },
       child: Padding(
@@ -273,7 +303,7 @@ class Homepage extends StatelessWidget {
                       IconButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => editscreen(
+                            builder: (context) => EditScreen(
                                 description: data.description,
                                 foodname: data.foodname,
                                 index: index,
@@ -281,7 +311,6 @@ class Homepage extends StatelessWidget {
                                 totalcost: data.totalcost,
                                 image: data.image),
                           ));
-                          // Add your edit functionality here
                         },
                         icon: Image.asset(
                           'assets/icons/edit.png',
@@ -300,7 +329,6 @@ class Homepage extends StatelessWidget {
                       IconButton(
                         onPressed: () {
                           addtofavourites(data);
-                          // Add your favorites functionality here
                         },
                         icon: Image.asset(
                           'assets/icons/bookmark.png',
@@ -314,7 +342,7 @@ class Homepage extends StatelessWidget {
               ),
             ),
             Transform.translate(
-              offset: const Offset(22, -40),
+              offset: const Offset(22, -20),
               child: Container(
                 width: 120,
                 height: 120,
@@ -332,7 +360,8 @@ class Homepage extends StatelessWidget {
                   child: Image(
                     image: data.image != null
                         ? FileImage(File(data.image!))
-                        : AssetImage('assets/image/food.png') as ImageProvider,
+                        : const AssetImage('assets/image/food.png')
+                            as ImageProvider,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -345,8 +374,8 @@ class Homepage extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    data.foodname, // Replace with the actual food name
-                    style: TextStyle(
+                    data.foodname,
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
@@ -354,8 +383,8 @@ class Homepage extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   Text(
-                    data.totalcost, // Replace with the actual food name
-                    style: TextStyle(
+                    data.totalcost,
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
@@ -378,7 +407,7 @@ class Homepage extends StatelessWidget {
         text: 'Do yo want to delete',
         confirmBtnText: 'Yes',
         cancelBtnText: 'No',
-        cancelBtnTextStyle: TextStyle(color: Colors.red),
+        cancelBtnTextStyle: const TextStyle(color: Colors.red),
         confirmBtnColor: Colors.green,
         onConfirmBtnTap: () {
           deleteRecipe(index);

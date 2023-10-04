@@ -6,50 +6,23 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:recipe_book/db/functions/db_functions.dart';
 import 'package:recipe_book/db/model/data_model.dart';
-import 'package:recipe_book/helpers/colors.dart';
+import 'package:recipe_book/pages/notifications.dart';
 
-class editscreen extends StatefulWidget {
-  const editscreen(
-      {Key? key,
-      required this.foodname,
-      required this.ingredients,
-      required this.description,
-      required this.totalcost,
-      required this.image,
-      required this.index})
-      : super(key: key);
-
-  final String foodname;
-  final String ingredients;
-  final String description;
-  final String totalcost;
-  final dynamic image;
-  final int index;
+class Createscreen extends StatefulWidget {
+  const Createscreen({Key? key}) : super(key: key);
 
   @override
-  _editscreenState createState() => _editscreenState();
+  _CreatescreenState createState() => _CreatescreenState();
 }
 
-class _editscreenState extends State<editscreen> {
-  final TextEditingController foodnamecontroller = TextEditingController();
-  final TextEditingController ingredientscontroller = TextEditingController();
-  final TextEditingController descriptioncontroller = TextEditingController();
-  final TextEditingController totalcostcontroller = TextEditingController();
-
-  File? selectedimage;
-
-  @override
-  void initState() {
-    foodnamecontroller.text = widget.foodname;
-    ingredientscontroller.text = widget.ingredients;
-    descriptioncontroller.text = widget.description;
-    totalcostcontroller.text = widget.totalcost;
-    selectedimage = widget.image != null ? File(widget.image) : null;
-    super.initState();
-  }
-
+class _CreatescreenState extends State<Createscreen> {
   bool isFieldFocused = false;
-  List ingredients = [1];
+
+  final _foodnameController = TextEditingController();
+  final _descriptionController = TextEditingController();
+  final _ingredientsController = TextEditingController();
+  final _totalCostController = TextEditingController();
+  File? selectedimage;
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +44,7 @@ class _editscreenState extends State<editscreen> {
                   height: 15,
                 ),
                 const Text(
-                  'Update Recipe',
+                  'Create Recipe',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
@@ -82,7 +55,7 @@ class _editscreenState extends State<editscreen> {
                   height: 30,
                 ),
                 TextFormField(
-                  controller: foodnamecontroller,
+                  controller: _foodnameController,
                   decoration: InputDecoration(
                     hintText: 'Food Name',
                     focusedBorder: const OutlineInputBorder(
@@ -91,20 +64,15 @@ class _editscreenState extends State<editscreen> {
                     ),
                     border: OutlineInputBorder(
                       borderSide: BorderSide(
-                          color: isFieldFocused
-                              ? Colors.red
-                              : Colors
-                                  .grey), // Change the border color based on focus
+                          color: isFieldFocused ? Colors.red : Colors.grey),
                       borderRadius: const BorderRadius.all(Radius.circular(15)),
                     ),
                   ),
-                  // Set the isFieldFocused state when the field is focused
                   onTap: () {
                     setState(() {
                       isFieldFocused = true;
                     });
                   },
-                  // Reset the isFieldFocused state when focus is lost
                   onFieldSubmitted: (_) {
                     setState(() {
                       isFieldFocused = false;
@@ -122,9 +90,9 @@ class _editscreenState extends State<editscreen> {
                   height: 20,
                 ),
                 TextFormField(
-                  controller: ingredientscontroller,
+                  controller: _ingredientsController,
                   maxLines: 5,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       hintText: 'Enter all ingredients with comma seperated',
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(15)))),
@@ -140,7 +108,7 @@ class _editscreenState extends State<editscreen> {
                   height: 20,
                 ),
                 TextFormField(
-                  controller: descriptioncontroller,
+                  controller: _descriptionController,
                   maxLines: 5,
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(
@@ -150,38 +118,43 @@ class _editscreenState extends State<editscreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                Text(
+                const Text(
                   'Total cost',
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TextFormField(
-                  controller: totalcostcontroller,
-                  decoration: InputDecoration(
+                  controller: _totalCostController,
+                  decoration: const InputDecoration(
                       hintText: 'Enter total cost for this recipe',
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(15)))),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Container(
                   height: 60,
                   width: 385,
                   child: ElevatedButton(
-                      style: ButtonStyle(
-                          shape: MaterialStatePropertyAll(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10))),
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.red)),
-                      onPressed: () => updateRecipe(),
-                      child: const Text(
-                        'Update my recipe',
-                        style: TextStyle(fontSize: 16),
-                      )),
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      backgroundColor: MaterialStateProperty.all(Colors.red),
+                    ),
+                    onPressed: () {
+                      addrecipe();
+                    },
+                    child: const Text(
+                      'Add my recipe',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
                 )
               ],
             ),
@@ -208,7 +181,7 @@ class _editscreenState extends State<editscreen> {
                   title: Text('Gallery'),
                   onTap: () {
                     pickImage(source: ImageSource.gallery);
-                    //handle gallery
+
                     Navigator.pop(context);
                   },
                 ),
@@ -220,7 +193,7 @@ class _editscreenState extends State<editscreen> {
                   title: Text('Camera'),
                   onTap: () {
                     pickImage(source: ImageSource.camera);
-                    // Handle camera function
+
                     Navigator.pop(context);
                   },
                 ),
@@ -236,7 +209,8 @@ class _editscreenState extends State<editscreen> {
                     ? FileImage(
                         selectedimage!,
                       )
-                    : AssetImage('assets/images/no-image.jpg') as ImageProvider,
+                    : const AssetImage('assets/images/no-image.jpg')
+                        as ImageProvider,
                 fit: BoxFit.cover)),
         child: DottedBorder(
           dashPattern: const [15, 5],
@@ -279,36 +253,38 @@ class _editscreenState extends State<editscreen> {
     });
   }
 
-  updateRecipe() {
-    final edited_foodname = foodnamecontroller.text.trim();
-    final edited_ingredients = ingredientscontroller.text.trim();
-    final edited_description = descriptioncontroller.text.trim();
-    final edited_totalcost = totalcostcontroller.text.trim();
-    final edited_image = selectedimage?.path;
+  void addrecipe() async {
+    final foodname = _foodnameController.text.trim();
+    final ingredients = _ingredientsController.text.trim();
+    final totalcost = _totalCostController.text.trim();
+    final description = _descriptionController.text.trim();
 
-    if (edited_foodname.isEmpty ||
-        edited_ingredients.isEmpty ||
-        edited_description.isEmpty ||
-        edited_totalcost.isEmpty) {
+    if (foodname.isEmpty ||
+        description.isEmpty ||
+        ingredients.isEmpty ||
+        totalcost.isEmpty) {
       return;
     }
-    final updated_recipe = RecipeModel(
-        foodname: edited_foodname,
-        ingredients: edited_ingredients,
-        totalcost: edited_totalcost,
-        description: edited_description,
-        image: edited_image);
 
-    editRecipe(widget.index, updated_recipe);
+    final recipe = RecipeModel(
+        image: selectedimage!.path,
+        foodname: foodname,
+        ingredients: ingredients,
+        totalcost: totalcost,
+        description: description);
+
+    addRecipe(recipe);
+
     Navigator.pop(context);
+
     final snackBar = SnackBar(
       elevation: 0,
       behavior: SnackBarBehavior.floating,
       backgroundColor: Colors.transparent,
       content: AwesomeSnackbarContent(
-          title: 'Wohoo!!',
-          message: 'You successfully updated your magic recipe',
-          contentType: ContentType.warning),
+          title: 'Oh Hey!!',
+          message: 'You successfully added your magic recipe',
+          contentType: ContentType.success),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }

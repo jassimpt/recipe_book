@@ -43,6 +43,12 @@ class TotalCost extends StatelessWidget {
                     return Column(
                       children: [
                         Container(
+                          height: 70,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: const BoxDecoration(
+                              color: boxgrey,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
                           child: Row(
                             children: [
                               const SizedBox(
@@ -61,24 +67,18 @@ class TotalCost extends StatelessWidget {
                               ),
                               Text(
                                 ingredients[index],
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(
                                 width: 190,
                               ),
                               Text(price[index],
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold))
                             ],
                           ),
-                          height: 70,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: const BoxDecoration(
-                              color: boxgrey,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
                         ),
                         const SizedBox(
                           height: 15,

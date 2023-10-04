@@ -3,10 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:recipe_book/db/model/data_model.dart';
 import 'package:recipe_book/helpers/colors.dart';
-import 'package:recipe_book/pages/totalcost.dart';
 
-class tutorialscreen extends StatelessWidget {
-  tutorialscreen({super.key, required this.recipe});
+class TutorialScreen extends StatelessWidget {
+  TutorialScreen({super.key, required this.recipe});
   RecipeModel recipe;
   @override
   Widget build(BuildContext context) {
@@ -31,7 +30,8 @@ class tutorialscreen extends StatelessWidget {
                 ),
                 Text(
                   'How to make ${recipe.foodname}',
-                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 26, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
                   height: 30,
@@ -41,17 +41,17 @@ class tutorialscreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
-                        color: Color(0x000000).withOpacity(1),
+                        color: const Color(0x000000).withOpacity(1),
                         spreadRadius: -9,
                         blurRadius: 12,
-                        offset: Offset(2, 0),
+                        offset: const Offset(2, 0),
                       ),
                     ],
                     borderRadius: BorderRadius.all(Radius.circular(12)),
                     image: DecorationImage(
                       image: recipe.image != null
                           ? FileImage(File(recipe.image!))
-                          : AssetImage('assets/images/no-image.jpg')
+                          : const AssetImage('assets/images/no-image.jpg')
                               as ImageProvider,
                       fit: BoxFit.cover,
                     ),
@@ -60,9 +60,9 @@ class tutorialscreen extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                Row(
+                const Row(
                   children: [
-                    const Text(
+                    Text(
                       'Ingredients',
                       style:
                           TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
@@ -79,9 +79,15 @@ class tutorialscreen extends StatelessWidget {
                     return Column(
                       children: [
                         Container(
+                          height: 70,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: const BoxDecoration(
+                            color: boxgrey,
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
                           child: Row(
                             children: [
-                              SizedBox(
+                              const SizedBox(
                                 width: 20,
                               ),
                               Image.asset(
@@ -93,21 +99,15 @@ class tutorialscreen extends StatelessWidget {
                               ),
                               Text(
                                 ingredients[index],
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 200,
                               ),
                             ],
-                          ),
-                          height: 70,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: const BoxDecoration(
-                            color: boxgrey,
-                            borderRadius: BorderRadius.all(Radius.circular(12)),
                           ),
                         ),
                         const SizedBox(

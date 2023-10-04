@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_book/pages/loginpage.dart';
+import 'package:recipe_book/pages/login_page.dart';
 
 class Onboardingpage extends StatelessWidget {
   const Onboardingpage({super.key});
@@ -50,10 +50,11 @@ class Onboardingpage extends StatelessWidget {
                     style: ButtonStyle(
                         shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
-                        backgroundColor: MaterialStatePropertyAll(Colors.red)),
+                        backgroundColor:
+                            const MaterialStatePropertyAll(Colors.red)),
                     onPressed: () {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => LoginScreen(),
+                        builder: (context) => const LoginScreen(),
                       ));
                     },
                     child: const Padding(

@@ -76,7 +76,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               MaterialStatePropertyAll(RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           )),
-                          backgroundColor: MaterialStatePropertyAll(Colors.red),
+                          backgroundColor:
+                              const MaterialStatePropertyAll(Colors.red),
                         ),
                         onPressed: () {
                           Navigator.of(context)
@@ -84,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             builder: (context) => bottom_nav(),
                           ));
                         },
-                        child: Text(
+                        child: const Text(
                           'Login Now',
                           style: TextStyle(fontSize: 16),
                         ),

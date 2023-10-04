@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:recipe_book/db/model/data_model.dart';
-import 'package:recipe_book/pages/favourites.dart';
+import 'package:recipe_book/pages/Favourites.dart';
 
 ValueNotifier<List<RecipeModel>> recipeListNotifier = ValueNotifier([]);
 List<RecipeModel> favouriterecipe = [];
