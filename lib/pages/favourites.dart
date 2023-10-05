@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:recipe_book/db/functions/db_functions.dart';
 import 'package:recipe_book/pages/tutorial.dart';
@@ -82,7 +81,11 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                       top: 10,
                       right: 10,
                       child: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            setState(() {
+                              deleteFavourites(index);
+                            });
+                          },
                           icon: Image.asset(
                             'assets/icons/bookmark.png',
                             height: 25,

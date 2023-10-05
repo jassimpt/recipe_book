@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:recipe_book/db/functions/db_functions.dart';
 import 'package:recipe_book/db/model/data_model.dart';
-import 'package:recipe_book/pages/notifications.dart';
 
 class Createscreen extends StatefulWidget {
   const Createscreen({Key? key}) : super(key: key);
@@ -23,140 +22,172 @@ class _CreatescreenState extends State<Createscreen> {
   final _ingredientsController = TextEditingController();
   final _totalCostController = TextEditingController();
   File? selectedimage;
+  final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(15),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Image.asset('assets/icons/Arrow-Left.png'),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                const Text(
-                  'Create Recipe',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                addcoverphoto(),
-                const SizedBox(
-                  height: 30,
-                ),
-                TextFormField(
-                  controller: _foodnameController,
-                  decoration: InputDecoration(
-                    hintText: 'Food Name',
-                    focusedBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red),
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                    ),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: isFieldFocused ? Colors.red : Colors.grey),
-                      borderRadius: const BorderRadius.all(Radius.circular(15)),
-                    ),
-                  ),
-                  onTap: () {
-                    setState(() {
-                      isFieldFocused = true;
-                    });
-                  },
-                  onFieldSubmitted: (_) {
-                    setState(() {
-                      isFieldFocused = false;
-                    });
-                  },
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Text(
-                  'Ingredients',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  controller: _ingredientsController,
-                  maxLines: 5,
-                  decoration: const InputDecoration(
-                      hintText: 'Enter all ingredients with comma seperated',
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15)))),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                const Text(
-                  'Description',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  controller: _descriptionController,
-                  maxLines: 5,
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15))),
-                      hintText: 'How to Prepare This?'),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Text(
-                  'Total cost',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  controller: _totalCostController,
-                  decoration: const InputDecoration(
-                      hintText: 'Enter total cost for this recipe',
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15)))),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  height: 60,
-                  width: 385,
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      backgroundColor: MaterialStateProperty.all(Colors.red),
-                    ),
+        body: Form(
+          key: formkey,
+          child: Padding(
+            padding: const EdgeInsets.all(15),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  IconButton(
                     onPressed: () {
-                      addrecipe();
+                      Navigator.pop(context);
                     },
-                    child: const Text(
-                      'Add my recipe',
-                      style: TextStyle(fontSize: 16),
-                    ),
+                    icon: Image.asset('assets/icons/Arrow-Left.png'),
                   ),
-                )
-              ],
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  const Text(
+                    'Create Recipe',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  addcoverphoto(),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Field is empty';
+                      }
+                      return null;
+                    },
+                    controller: _foodnameController,
+                    decoration: InputDecoration(
+                      hintText: 'Food Name',
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.red),
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: isFieldFocused ? Colors.red : Colors.grey),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(15)),
+                      ),
+                    ),
+                    onTap: () {
+                      setState(() {
+                        isFieldFocused = true;
+                      });
+                    },
+                    onFieldSubmitted: (_) {
+                      setState(() {
+                        isFieldFocused = false;
+                      });
+                    },
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text(
+                    'Ingredients',
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Field is empty';
+                      }
+                      return null;
+                    },
+                    controller: _ingredientsController,
+                    maxLines: 5,
+                    decoration: const InputDecoration(
+                        hintText: 'Enter all ingredients with comma seperated',
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15)))),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  const Text(
+                    'Description',
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Field is empty';
+                      }
+                      return null;
+                    },
+                    controller: _descriptionController,
+                    maxLines: 5,
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15))),
+                        hintText: 'How to Prepare This?'),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text(
+                    'Total cost',
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Field is empty';
+                      }
+                      return null;
+                    },
+                    controller: _totalCostController,
+                    decoration: const InputDecoration(
+                        hintText: 'Enter total cost for this recipe',
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15)))),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    height: 60,
+                    width: 385,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        backgroundColor: MaterialStateProperty.all(Colors.red),
+                      ),
+                      onPressed: () {
+                        addrecipe();
+                      },
+                      child: const Text(
+                        'Add my recipe',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),
@@ -254,38 +285,40 @@ class _CreatescreenState extends State<Createscreen> {
   }
 
   void addrecipe() async {
-    final foodname = _foodnameController.text.trim();
-    final ingredients = _ingredientsController.text.trim();
-    final totalcost = _totalCostController.text.trim();
-    final description = _descriptionController.text.trim();
+    if (formkey.currentState!.validate()) {
+      final foodname = _foodnameController.text.trim();
+      final ingredients = _ingredientsController.text.trim();
+      final totalcost = _totalCostController.text.trim();
+      final description = _descriptionController.text.trim();
 
-    if (foodname.isEmpty ||
-        description.isEmpty ||
-        ingredients.isEmpty ||
-        totalcost.isEmpty) {
-      return;
+      if (foodname.isEmpty ||
+          description.isEmpty ||
+          ingredients.isEmpty ||
+          totalcost.isEmpty) {
+        return;
+      }
+
+      final recipe = RecipeModel(
+          image: selectedimage!.path,
+          foodname: foodname,
+          ingredients: ingredients,
+          totalcost: totalcost,
+          description: description);
+
+      addRecipe(recipe);
+
+      Navigator.pop(context);
+
+      final snackBar = SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+            title: 'Oh Hey!!',
+            message: 'You successfully added your magic recipe',
+            contentType: ContentType.success),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
-
-    final recipe = RecipeModel(
-        image: selectedimage!.path,
-        foodname: foodname,
-        ingredients: ingredients,
-        totalcost: totalcost,
-        description: description);
-
-    addRecipe(recipe);
-
-    Navigator.pop(context);
-
-    final snackBar = SnackBar(
-      elevation: 0,
-      behavior: SnackBarBehavior.floating,
-      backgroundColor: Colors.transparent,
-      content: AwesomeSnackbarContent(
-          title: 'Oh Hey!!',
-          message: 'You successfully added your magic recipe',
-          contentType: ContentType.success),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

@@ -7,7 +7,8 @@ import 'package:recipe_book/pages/notifications.dart';
 import 'package:recipe_book/pages/total_cost.dart';
 
 class bottom_nav extends StatefulWidget {
-  const bottom_nav({super.key});
+  bottom_nav({super.key, required this.savedusername});
+  final savedusername;
 
   @override
   State<bottom_nav> createState() => _bottom_navState();
@@ -15,18 +16,26 @@ class bottom_nav extends StatefulWidget {
 
 class _bottom_navState extends State<bottom_nav> {
   int _selectedindex = 0;
+
+  late List pages;
+
+  @override
+  void initState() {
+    super.initState();
+
+    pages = [
+      Homepage(savedusername: widget.savedusername),
+      FavouritesScreen(),
+      NotificationsScreen(),
+      TotalCost()
+    ];
+  }
+
   bottomNavigator(int index) {
     setState(() {
       _selectedindex = index;
     });
   }
-
-  List pages = [
-    Homepage(),
-    FavouritesScreen(),
-    NotificationsScreen(),
-    TotalCost()
-  ];
 
   @override
   Widget build(BuildContext context) {

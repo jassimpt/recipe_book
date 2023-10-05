@@ -7,17 +7,22 @@ import 'package:recipe_book/db/model/data_model.dart';
 import 'package:recipe_book/helpers/colors.dart';
 import 'package:recipe_book/pages/create_screen.dart';
 import 'package:recipe_book/pages/edit_screen.dart';
+import 'package:recipe_book/pages/login_page.dart';
 import 'package:recipe_book/pages/terms.dart';
 import 'package:recipe_book/pages/tutorial.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Homepage extends StatefulWidget {
-  const Homepage({super.key});
+  Homepage({super.key, required this.savedusername});
+  final String savedusername;
 
   @override
   State<Homepage> createState() => _HomepageState();
 }
 
 class _HomepageState extends State<Homepage> {
+  String? userName;
+
   List<RecipeModel> _foundrecipes = [];
 
   loadrecipes() async {
@@ -29,8 +34,16 @@ class _HomepageState extends State<Homepage> {
 
   @override
   void initState() {
+    loadUsername();
     loadrecipes();
     super.initState();
+  }
+
+  loadUsername() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userName = prefs.getString('username');
+    });
   }
 
   _filter(String enteredName) {
@@ -55,117 +68,132 @@ class _HomepageState extends State<Homepage> {
     getAllRecipes();
     return SafeArea(
       child: Scaffold(
-        endDrawer: Drawer(
-          child: ListView(
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(20),
-                child: Text('Settings',
-                    style:
-                        TextStyle(fontSize: 26, fontWeight: FontWeight.bold)),
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              SizedBox(
-                height: 50,
-                child: ElevatedButton(
-                  style: const ButtonStyle(
-                      elevation: MaterialStatePropertyAll(0),
-                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)))),
-                      backgroundColor: MaterialStatePropertyAll(boxgrey)),
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => Terms(),
-                    ));
-                  },
-                  child: const Text(
-                    'Terms and conditions',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
+        endDrawer: Container(
+          height: MediaQuery.of(context).size.height / 1.4,
+          child: ClipRRect(
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(25), topLeft: Radius.circular(25)),
+            child: Drawer(
+              child: ListView(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(20),
+                    child: Text('Settings',
+                        style: TextStyle(
+                            fontSize: 26, fontWeight: FontWeight.bold)),
                   ),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: 50,
-                child: ElevatedButton(
-                  style: const ButtonStyle(
-                      elevation: MaterialStatePropertyAll(0),
-                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)))),
-                      backgroundColor: MaterialStatePropertyAll(boxgrey)),
-                  onPressed: () {},
-                  child: const Text(
-                    'Help',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
+                  const SizedBox(
+                    height: 50,
                   ),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: 50,
-                child: ElevatedButton(
-                  style: const ButtonStyle(
-                      elevation: MaterialStatePropertyAll(0),
-                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)))),
-                      backgroundColor: MaterialStatePropertyAll(boxgrey)),
-                  onPressed: () {},
-                  child: const Text(
-                    'About our app',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
+                  SizedBox(
+                    height: 50,
+                    child: ElevatedButton(
+                      style: const ButtonStyle(
+                          elevation: MaterialStatePropertyAll(0),
+                          shape: MaterialStatePropertyAll(
+                              RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)))),
+                          backgroundColor: MaterialStatePropertyAll(boxgrey)),
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => Terms(),
+                        ));
+                      },
+                      child: const Text(
+                        'Terms and conditions',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: 50,
-                child: ElevatedButton(
-                  style: const ButtonStyle(
-                      elevation: MaterialStatePropertyAll(0),
-                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)))),
-                      backgroundColor: MaterialStatePropertyAll(boxgrey)),
-                  onPressed: () {
-                    SystemNavigator.pop();
-                  },
-                  child: const Text(
-                    'Logout',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
+                  const SizedBox(
+                    height: 20,
                   ),
-                ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: 50,
+                    child: ElevatedButton(
+                      style: const ButtonStyle(
+                          elevation: MaterialStatePropertyAll(0),
+                          shape: MaterialStatePropertyAll(
+                              RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)))),
+                          backgroundColor: MaterialStatePropertyAll(boxgrey)),
+                      onPressed: () {},
+                      child: const Text(
+                        'Help',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: 50,
+                    child: ElevatedButton(
+                      style: const ButtonStyle(
+                          elevation: MaterialStatePropertyAll(0),
+                          shape: MaterialStatePropertyAll(
+                              RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)))),
+                          backgroundColor: MaterialStatePropertyAll(boxgrey)),
+                      onPressed: () {},
+                      child: const Text(
+                        'About our app',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: 50,
+                    child: ElevatedButton(
+                      style: const ButtonStyle(
+                          elevation: MaterialStatePropertyAll(0),
+                          shape: MaterialStatePropertyAll(
+                              RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)))),
+                          backgroundColor: MaterialStatePropertyAll(boxgrey)),
+                      onPressed: () {
+                        logOut();
+                      },
+                      child: const Text(
+                        'Logout',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  const Center(
+                      child: Text(
+                    'Version 1.0.1',
+                    style: TextStyle(fontSize: 15),
+                  ))
+                ],
               ),
-              const SizedBox(
-                height: 50,
-              ),
-              const Center(
-                  child: Text(
-                'Version 1.0.1',
-                style: TextStyle(fontSize: 15),
-              ))
-            ],
+            ),
           ),
         ),
         body: Padding(
@@ -176,14 +204,16 @@ class _HomepageState extends State<Homepage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Roberta Anny ',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: usernamegrey,
-                    ),
-                  ),
+                  userName != null
+                      ? Text(
+                          userName!,
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: usernamegrey,
+                          ),
+                        )
+                      : Text('Error!!'),
                   Builder(builder: (context) {
                     return Container(
                       height: 40,
@@ -414,5 +444,15 @@ class _HomepageState extends State<Homepage> {
           Navigator.pop(context);
         },
         customAsset: 'assets/images/deleting.gif');
+  }
+
+  logOut() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (context) => LoginScreen(),
+        ),
+        (route) => false);
   }
 }

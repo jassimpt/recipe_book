@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:quickalert/quickalert.dart';
+
 import 'package:recipe_book/db/model/data_model.dart';
-import 'package:recipe_book/pages/Favourites.dart';
 
 ValueNotifier<List<RecipeModel>> recipeListNotifier = ValueNotifier([]);
 List<RecipeModel> favouriterecipe = [];
@@ -47,10 +46,22 @@ editRecipe(index, RecipeModel value) async {
 }
 
 addtofavourites(RecipeModel data) async {
-  bool isfavourite = favouriterecipe.contains(data);
   final favDB = await Hive.openBox<RecipeModel>('fav_db');
-  if (!isfavourite) {
-    await favDB.add(data);
+  if (!favouriterecipe.contains(data)) {
     favouriterecipe.add(data);
+    favDB.add(data);
   }
+}
+
+loadFavourites() async {
+  final favDB = await Hive.openBox<RecipeModel>('fav_db');
+  favouriterecipe.clear();
+  favouriterecipe = favDB.values.toList();
+}
+
+deleteFavourites(int id) async {
+  final favDB = await Hive.openBox<RecipeModel>('fav_db');
+  favDB.deleteAt(id);
+  favouriterecipe.removeAt(id);
+  loadFavourites();
 }
