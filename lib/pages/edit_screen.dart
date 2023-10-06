@@ -161,7 +161,7 @@ class _EditScreenState extends State<EditScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                Container(
+                SizedBox(
                   height: 60,
                   width: 385,
                   child: ElevatedButton(
@@ -199,7 +199,7 @@ class _EditScreenState extends State<EditScreen> {
                     'assets/icons/gallery.png',
                     height: 40,
                   ),
-                  title: Text('Gallery'),
+                  title: const Text('Gallery'),
                   onTap: () {
                     pickImage(source: ImageSource.gallery);
                     //handle gallery
@@ -211,7 +211,7 @@ class _EditScreenState extends State<EditScreen> {
                     'assets/icons/camera.png',
                     height: 40,
                   ),
-                  title: Text('Camera'),
+                  title: const Text('Camera'),
                   onTap: () {
                     pickImage(source: ImageSource.camera);
                     // Handle camera function

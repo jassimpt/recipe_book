@@ -1,4 +1,3 @@
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_book/widgets/bottom_nav.dart';
 import 'package:shared_preferences/shared_preferences.dart';

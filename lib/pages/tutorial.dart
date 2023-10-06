@@ -47,7 +47,7 @@ class TutorialScreen extends StatelessWidget {
                         offset: const Offset(2, 0),
                       ),
                     ],
-                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                    borderRadius: BorderRadius.all(const Radius.circular(12)),
                     image: DecorationImage(
                       image: recipe.image != null
                           ? FileImage(File(recipe.image!))
@@ -104,9 +104,6 @@ class TutorialScreen extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              const SizedBox(
-                                width: 200,
-                              ),
                             ],
                           ),
                         ),
@@ -129,23 +126,24 @@ class TutorialScreen extends StatelessWidget {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  constraints: BoxConstraints(minHeight: 150),
+                  constraints: const BoxConstraints(minHeight: 150),
                   decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
-                          color: Color(0x000000).withOpacity(1),
+                          color: const Color(0x000000).withOpacity(1),
                           spreadRadius: -9,
                           blurRadius: 12,
-                          offset: Offset(2, 0),
+                          offset: const Offset(2, 0),
                         ),
                       ],
                       color: boxgrey,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(10))),
                   child: Padding(
-                    padding: EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(15),
                     child: Text(
                       recipe.description,
-                      style: TextStyle(fontSize: 18),
+                      style: const TextStyle(fontSize: 18),
                     ),
                   ),
                 ),

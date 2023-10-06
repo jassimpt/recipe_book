@@ -26,37 +26,37 @@ class _OnboardingpageState extends State<Onboardingpage> {
         children: [
           Image.asset('assets/images/bg-burg.jpg',
               height: height, width: width, fit: BoxFit.cover),
-          Positioned(
+          const Positioned(
             top: 500,
             left: 80,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
+                Text(
                   "Let's",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 65,
                       fontWeight: FontWeight.bold),
                 ),
-                const Text(
+                Text(
                   'Cooking',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 65,
                       fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 30,
                 ),
-                const Text(
+                Text(
                   'Find best recipes for cooking',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
                   ),
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 40,
                 ),
                 // ElevatedButton(

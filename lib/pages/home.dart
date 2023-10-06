@@ -9,6 +9,7 @@ import 'package:recipe_book/pages/create_screen.dart';
 import 'package:recipe_book/pages/edit_screen.dart';
 import 'package:recipe_book/pages/login_page.dart';
 import 'package:recipe_book/pages/terms.dart';
+
 import 'package:recipe_book/pages/tutorial.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,7 +23,6 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   String? userName;
-
   List<RecipeModel> _foundrecipes = [];
 
   loadrecipes() async {
@@ -68,10 +68,10 @@ class _HomepageState extends State<Homepage> {
     getAllRecipes();
     return SafeArea(
       child: Scaffold(
-        endDrawer: Container(
+        endDrawer: SizedBox(
           height: MediaQuery.of(context).size.height / 1.4,
           child: ClipRRect(
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(25), topLeft: Radius.circular(25)),
             child: Drawer(
               child: ListView(
@@ -97,7 +97,7 @@ class _HomepageState extends State<Homepage> {
                           backgroundColor: MaterialStatePropertyAll(boxgrey)),
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => Terms(),
+                          builder: (context) => const Terms(),
                         ));
                       },
                       child: const Text(
@@ -213,7 +213,7 @@ class _HomepageState extends State<Homepage> {
                             color: usernamegrey,
                           ),
                         )
-                      : Text('Error!!'),
+                      : const Text('Error!!'),
                   Builder(builder: (context) {
                     return Container(
                       height: 40,
@@ -271,7 +271,7 @@ class _HomepageState extends State<Homepage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => Createscreen(),
+                              builder: (context) => const Createscreen(),
                             ));
                       },
                       icon: Image.asset('assets/icons/produt_add.png')),
@@ -434,7 +434,6 @@ class _HomepageState extends State<Homepage> {
     QuickAlert.show(
         context: context,
         type: QuickAlertType.confirm,
-        text: 'Do yo want to delete',
         confirmBtnText: 'Yes',
         cancelBtnText: 'No',
         cancelBtnTextStyle: const TextStyle(color: Colors.red),
@@ -451,7 +450,7 @@ class _HomepageState extends State<Homepage> {
     await prefs.clear();
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
-          builder: (context) => LoginScreen(),
+          builder: (context) => const LoginScreen(),
         ),
         (route) => false);
   }

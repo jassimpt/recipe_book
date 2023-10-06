@@ -97,7 +97,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
               ),
               Text(
                 recipe.foodname,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),

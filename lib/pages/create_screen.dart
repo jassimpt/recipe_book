@@ -165,7 +165,7 @@ class _CreatescreenState extends State<Createscreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Container(
+                  SizedBox(
                     height: 60,
                     width: 385,
                     child: ElevatedButton(
@@ -209,7 +209,7 @@ class _CreatescreenState extends State<Createscreen> {
                     'assets/icons/gallery.png',
                     height: 40,
                   ),
-                  title: Text('Gallery'),
+                  title: const Text('Gallery'),
                   onTap: () {
                     pickImage(source: ImageSource.gallery);
 
@@ -221,7 +221,7 @@ class _CreatescreenState extends State<Createscreen> {
                     'assets/icons/camera.png',
                     height: 40,
                   ),
-                  title: Text('Camera'),
+                  title: const Text('Camera'),
                   onTap: () {
                     pickImage(source: ImageSource.camera);
 

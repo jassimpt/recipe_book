@@ -25,9 +25,9 @@ class _bottom_navState extends State<bottom_nav> {
 
     pages = [
       Homepage(savedusername: widget.savedusername),
-      FavouritesScreen(),
-      NotificationsScreen(),
-      TotalCost()
+      const FavouritesScreen(),
+      const NotificationsScreen(),
+      const TotalCost()
     ];
   }
 
@@ -56,7 +56,7 @@ class _bottom_navState extends State<bottom_nav> {
                   spreadRadius: 4,
                 ),
               ],
-              backgroundColor: Color.fromARGB(255, 244, 54, 54),
+              backgroundColor: const Color.fromARGB(255, 244, 54, 54),
               currentIndex: _selectedindex,
               onTap: bottomNavigator,
               items: [

@@ -59,8 +59,8 @@ class TotalCost extends StatelessWidget {
                                 height: 50,
                                 decoration: BoxDecoration(
                                     color: colors1[index],
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10))),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10))),
                               ),
                               const SizedBox(
                                 width: 20,
