@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_book/db/functions/functions.dart';
+import 'package:recipe_book/helpers/colors.dart';
 
-class NotificationsScreen extends StatelessWidget {
-  const NotificationsScreen({super.key});
+class NotificationsScreen extends StatefulWidget {
+  const NotificationsScreen({
+    super.key,
+  });
 
+  @override
+  State<NotificationsScreen> createState() => _NotificationsScreenState();
+}
+
+class _NotificationsScreenState extends State<NotificationsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,16 +44,64 @@ class NotificationsScreen extends StatelessWidget {
                 height: 30,
               ),
               const Text(
-                'Today',
+                'Latest',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
-                height: 100,
+                height: 30,
               ),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [Text('No new notifications')],
-              )
+              // const Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [Text('No new notifications')],
+              // ),
+              Expanded(
+                  child: ListView.builder(
+                itemCount: notifications.length,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      Container(
+                        height: 80,
+                        width: MediaQuery.of(context).size.width,
+                        decoration: const BoxDecoration(
+                            color: boxgrey,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(12))),
+                        child: Row(
+                          children: [
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Image.asset(
+                              'assets/icons/Icon_Transantion-Success.png',
+                              height: 35,
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            const Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'New Recipe!',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text('Your magic recipe is available now..')
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      )
+                    ],
+                  );
+                },
+              ))
             ],
           ),
         ),

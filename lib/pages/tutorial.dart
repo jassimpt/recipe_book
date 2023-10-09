@@ -128,14 +128,6 @@ class TutorialScreen extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   constraints: const BoxConstraints(minHeight: 150),
                   decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0x000000).withOpacity(1),
-                          spreadRadius: -9,
-                          blurRadius: 12,
-                          offset: const Offset(2, 0),
-                        ),
-                      ],
                       color: boxgrey,
                       borderRadius:
                           const BorderRadius.all(Radius.circular(10))),

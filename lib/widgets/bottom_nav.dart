@@ -26,7 +26,7 @@ class _bottom_navState extends State<bottom_nav> {
     pages = [
       Homepage(savedusername: widget.savedusername),
       const FavouritesScreen(),
-      const NotificationsScreen(),
+      NotificationsScreen(),
       const TotalCost()
     ];
   }

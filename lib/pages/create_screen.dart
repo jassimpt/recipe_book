@@ -5,10 +5,13 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:recipe_book/db/functions/db_functions.dart';
+import 'package:recipe_book/db/functions/functions.dart';
 import 'package:recipe_book/db/model/data_model.dart';
 
 class Createscreen extends StatefulWidget {
-  const Createscreen({Key? key}) : super(key: key);
+  const Createscreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _CreatescreenState createState() => _CreatescreenState();
@@ -179,6 +182,7 @@ class _CreatescreenState extends State<Createscreen> {
                       ),
                       onPressed: () {
                         addrecipe();
+                        addNotification();
                       },
                       child: const Text(
                         'Add my recipe',
