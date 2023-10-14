@@ -59,27 +59,6 @@ class _OnboardingpageState extends State<Onboardingpage> {
                 SizedBox(
                   height: 40,
                 ),
-                // ElevatedButton(
-                //     style: ButtonStyle(
-                //         shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                //             borderRadius: BorderRadius.circular(10))),
-                //         backgroundColor:
-                //             const MaterialStatePropertyAll(Colors.red)),
-                //     onPressed: () {},
-                //     child: const Padding(
-                //       padding: EdgeInsets.only(
-                //           top: 15, bottom: 15, left: 30, right: 30),
-                //       child: Row(
-                //         mainAxisSize: MainAxisSize.min,
-                //         children: [
-                //           Text('Start cooking'),
-                //           SizedBox(
-                //             width: 15,
-                //           ),
-                //           Icon(Icons.arrow_forward_outlined)
-                //         ],
-                //       ),
-                //     ))
               ],
             ),
           )

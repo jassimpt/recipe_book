@@ -1,13 +1,16 @@
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
-import 'package:recipe_book/pages/Favourites.dart';
-import 'package:recipe_book/pages/Home.dart';
+import 'package:recipe_book/pages/favourites.dart';
+import 'package:recipe_book/pages/home.dart';
 import 'package:recipe_book/pages/notifications.dart';
 import 'package:recipe_book/pages/total_cost.dart';
 
 class bottom_nav extends StatefulWidget {
-  bottom_nav({super.key, required this.savedusername});
+  bottom_nav({
+    super.key,
+    required this.savedusername,
+  });
   final savedusername;
 
   @override
@@ -25,9 +28,9 @@ class _bottom_navState extends State<bottom_nav> {
 
     pages = [
       Homepage(savedusername: widget.savedusername),
-      const FavouritesScreen(),
+      FavouritesScreen(),
       NotificationsScreen(),
-      const TotalCost()
+      TotalCost(),
     ];
   }
 

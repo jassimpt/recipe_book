@@ -390,7 +390,7 @@ class _HomepageState extends State<Homepage> {
                   child: Image(
                     image: data.image != null
                         ? FileImage(File(data.image!))
-                        : const AssetImage('assets/image/food.png')
+                        : const AssetImage('assets/images/no-image.jpg')
                             as ImageProvider,
                     fit: BoxFit.cover,
                   ),

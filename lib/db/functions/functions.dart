@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 List notifications = [];
 
 void addNotification() {

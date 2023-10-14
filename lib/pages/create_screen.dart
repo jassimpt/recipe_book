@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:recipe_book/db/functions/db_functions.dart';
 import 'package:recipe_book/db/functions/functions.dart';
@@ -158,6 +159,10 @@ class _CreatescreenState extends State<Createscreen> {
                       }
                       return null;
                     },
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+                    ],
+                    keyboardType: TextInputType.number,
                     controller: _totalCostController,
                     decoration: const InputDecoration(
                         hintText: 'Enter total cost for this recipe',
@@ -303,7 +308,7 @@ class _CreatescreenState extends State<Createscreen> {
       }
 
       final recipe = RecipeModel(
-          image: selectedimage!.path,
+          image: selectedimage?.path,
           foodname: foodname,
           ingredients: ingredients,
           totalcost: totalcost,

@@ -47,7 +47,7 @@ class TutorialScreen extends StatelessWidget {
                         offset: const Offset(2, 0),
                       ),
                     ],
-                    borderRadius: BorderRadius.all(const Radius.circular(12)),
+                    borderRadius: const BorderRadius.all(Radius.circular(12)),
                     image: DecorationImage(
                       image: recipe.image != null
                           ? FileImage(File(recipe.image!))
@@ -127,10 +127,9 @@ class TutorialScreen extends StatelessWidget {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   constraints: const BoxConstraints(minHeight: 150),
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: boxgrey,
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(10))),
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Padding(
                     padding: const EdgeInsets.all(15),
                     child: Text(
