@@ -28,60 +28,24 @@ class Terms extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                const Text(
-                    ''' These terms and conditions ("Terms") govern your use of the Recipe App ("App") created by Jassim pt ("Developer"). By downloading, installing, or using the App, you agree to comply with these Terms. If you do not agree with these Terms, please do not use the App.
-        
-        1. App Usage
-        
-        1.1. The App is provided for informational and entertainment purposes only. It offers recipes, cooking tips, and related content.
-        
-        1.2. You are responsible for ensuring the accuracy and safety of any recipes or cooking instructions provided in the App.
-        
-        2. User Accounts
-        
-        2.1. You may be required to create a user account to access certain features of the App. You agree to provide accurate and complete information when registering and to keep your login credentials confidential.
-        
-        2.2. You are solely responsible for any activity that occurs under your user account.
-        
-        3. Privacy
-        
-        3.1. Your use of the App is subject to our Privacy Policy, which is incorporated by reference into these Terms. Please review the Privacy Policy to understand how we collect, use, and disclose your personal information.
-        
-        4. Intellectual Property
-        
-        4.1. The App, including all content, text, graphics, images, and other materials, is protected by intellectual property laws and is owned or licensed by the Developer.
-        
-        4.2. You may not modify, reproduce, distribute, create derivative works, or reverse engineer the App without the Developer's prior written consent.
-        
-        5. User Content
-        
-        5.1. You may have the option to submit content, such as recipes, comments, or reviews, through the App. By submitting content, you grant the Developer a non-exclusive, royalty-free, worldwide, perpetual license to use, display, and distribute your content within the App.
-        
-        6. Termination
-        
-        6.1. The Developer reserves the right to terminate or suspend your access to the App at any time and for any reason without notice.
-        
-        7. Disclaimers
-        
-        7.1. The App is provided "as is" without warranties of any kind, either expressed or implied, including but not limited to the accuracy, reliability, or availability of the App.
-        
-        8. Limitation of Liability
-        
-        8.1. To the fullest extent permitted by applicable law, the Developer shall not be liable for any direct, indirect, incidental, special, or consequential damages arising out of or in any way connected with the use or inability to use the App.
-        
-        9. Changes to Terms
-        
-        9.1. The Developer may modify these Terms at any time. You are responsible for regularly reviewing these Terms for updates.
-        
-        10. Governing Law
-        
-        10.1. These Terms shall be governed by and construed in accordance with the laws of [Your Jurisdiction].
-        
-        11. Contact Information
-        
-        11.1. If you have any questions or concerns about these Terms, please contact us at [Contact Email Address].
-        
-        By using the Recipe App, you agree to abide by these Terms and Conditions. If you do not agree with any part of these Terms, please discontinue your use of the App. ''')
+                const Text(''' 
+              Welcome to the Recipe App! By using this app, you agree to these simple terms:
+
+  1:- Use Responsibly: The Recipe App is designed to help you store recipes and images. Use it responsibly and enjoy your cooking experience!
+
+  2:- Your Content: Any recipes and images you add are your responsibility. Make sure they are accurate and safe to use.
+
+  3:- Respect Privacy: We care about your privacy. Your use of the app is subject to our Privacy Policy.
+
+  4:- App Ownership: The Recipe App and its content belong to us. Please don't modify, distribute, or reverse engineer the app without our permission.
+
+  5:- App Changes: We might update the app or these terms. Stay tuned for any announcements from us.
+
+  6:- App Availability: We aim to provide the app 24/7, but we can't guarantee it. We're not responsible for any inconvenience caused by app unavailability.
+
+  7:- Get in Touch: If you have questions, reach out to us at jassimmuthu990@gmail.com.
+
+              By using the Recipe App, you agree to these terms. Enjoy your cooking adventures! ''')
               ],
             ),
           ),

@@ -307,6 +307,22 @@ class _CreatescreenState extends State<Createscreen> {
         return;
       }
 
+      final isDuplicate =
+          recipeListNotifier.value.any((recipe) => recipe.foodname == foodname);
+      if (isDuplicate) {
+        final snackBar = SnackBar(
+          elevation: 0,
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.transparent,
+          content: AwesomeSnackbarContent(
+              title: 'Oops!!',
+              message: 'Recipe with same name exists',
+              contentType: ContentType.failure),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        return;
+      }
+
       final recipe = RecipeModel(
           image: selectedimage?.path,
           foodname: foodname,

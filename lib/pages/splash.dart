@@ -81,7 +81,7 @@ class _OnboardingpageState extends State<Onboardingpage> {
       splashLogin();
     } else {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => bottom_nav(savedusername: username),
+        builder: (context) => BottomNav(savedusername: username),
       ));
     }
   }

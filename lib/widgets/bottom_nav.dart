@@ -6,18 +6,18 @@ import 'package:recipe_book/pages/home.dart';
 import 'package:recipe_book/pages/notifications.dart';
 import 'package:recipe_book/pages/total_cost.dart';
 
-class bottom_nav extends StatefulWidget {
-  bottom_nav({
+class BottomNav extends StatefulWidget {
+  BottomNav({
     super.key,
     required this.savedusername,
   });
   final savedusername;
 
   @override
-  State<bottom_nav> createState() => _bottom_navState();
+  State<BottomNav> createState() => BottomNavState();
 }
 
-class _bottom_navState extends State<bottom_nav> {
+class BottomNavState extends State<BottomNav> {
   int _selectedindex = 0;
 
   late List pages;

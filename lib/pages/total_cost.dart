@@ -54,7 +54,7 @@ class _TotalCostState extends State<TotalCost> {
                         )
                       ],
                     ),
-                    chartScreen(recipes: recipes),
+                    ChartScreen(recipes: recipes),
                   ],
                 )
               ],

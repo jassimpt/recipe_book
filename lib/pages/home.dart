@@ -123,54 +123,6 @@ class _HomepageState extends State<Homepage> {
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10)))),
                           backgroundColor: MaterialStatePropertyAll(boxgrey)),
-                      onPressed: () {},
-                      child: const Text(
-                        'Help',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: 50,
-                    child: ElevatedButton(
-                      style: const ButtonStyle(
-                          elevation: MaterialStatePropertyAll(0),
-                          shape: MaterialStatePropertyAll(
-                              RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10)))),
-                          backgroundColor: MaterialStatePropertyAll(boxgrey)),
-                      onPressed: () {},
-                      child: const Text(
-                        'About our app',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: 50,
-                    child: ElevatedButton(
-                      style: const ButtonStyle(
-                          elevation: MaterialStatePropertyAll(0),
-                          shape: MaterialStatePropertyAll(
-                              RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10)))),
-                          backgroundColor: MaterialStatePropertyAll(boxgrey)),
                       onPressed: () {
                         logOut();
                       },

@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:recipe_book/db/model/data_model.dart';
 import 'package:recipe_book/helpers/colors.dart';
 
-class chartScreen extends StatelessWidget {
-  const chartScreen({
+class ChartScreen extends StatelessWidget {
+  const ChartScreen({
     super.key,
     required this.recipes,
   });

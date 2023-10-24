@@ -119,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('username', userName);
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => bottom_nav(savedusername: userName),
+        builder: (context) => BottomNav(savedusername: userName),
       ));
     }
   }
