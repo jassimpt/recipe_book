@@ -5,9 +5,10 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:recipe_book/db/functions/db_functions.dart';
-import 'package:recipe_book/db/functions/functions.dart';
-import 'package:recipe_book/db/model/data_model.dart';
+
+import 'package:recipe_book/controllers/functions.dart';
+import 'package:recipe_book/controllers/db_functions.dart';
+import 'package:recipe_book/models/data_model.dart';
 
 class Createscreen extends StatefulWidget {
   const Createscreen({

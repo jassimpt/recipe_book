@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 
-import 'package:recipe_book/db/model/data_model.dart';
+import 'package:recipe_book/models/data_model.dart';
 
 ValueNotifier<List<RecipeModel>> recipeListNotifier = ValueNotifier([]);
 List<RecipeModel> favouriterecipe = [];
@@ -11,7 +11,6 @@ void addRecipe(RecipeModel value) async {
   final recipeDB = await Hive.openBox<RecipeModel>('recipe_db');
   await recipeDB.add(value);
   recipeListNotifier.value.add(value);
-
   recipeListNotifier.notifyListeners();
 }
 

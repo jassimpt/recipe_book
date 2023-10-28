@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_book/db/functions/functions.dart';
+import 'package:recipe_book/controllers/functions.dart';
 import 'package:recipe_book/helpers/colors.dart';
 
 class NotificationsScreen extends StatefulWidget {

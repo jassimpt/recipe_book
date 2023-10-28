@@ -1,10 +1,10 @@
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
-import 'package:recipe_book/pages/favourites.dart';
-import 'package:recipe_book/pages/home.dart';
-import 'package:recipe_book/pages/notifications.dart';
-import 'package:recipe_book/pages/total_cost.dart';
+import 'package:recipe_book/views/pages/favourites.dart';
+import 'package:recipe_book/views/pages/home.dart';
+import 'package:recipe_book/views/pages/notifications.dart';
+import 'package:recipe_book/views/pages/total_cost.dart';
 
 class BottomNav extends StatefulWidget {
   BottomNav({

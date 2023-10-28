@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:recipe_book/db/functions/db_functions.dart';
-import 'package:recipe_book/pages/tutorial.dart';
+import 'package:recipe_book/controllers/db_functions.dart';
+import 'package:recipe_book/views/pages/tutorial.dart';
 
 class FavouritesScreen extends StatefulWidget {
   const FavouritesScreen({super.key});

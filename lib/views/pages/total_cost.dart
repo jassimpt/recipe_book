@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_book/db/functions/db_functions.dart';
-import 'package:recipe_book/db/model/data_model.dart';
+
+import 'package:recipe_book/controllers/db_functions.dart';
+import 'package:recipe_book/models/data_model.dart';
 
 import 'package:recipe_book/utils/chart.dart';
 

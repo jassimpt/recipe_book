@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:recipe_book/db/model/data_model.dart';
+import 'package:recipe_book/models/data_model.dart';
 import 'package:recipe_book/helpers/colors.dart';
 
 class TutorialScreen extends StatelessWidget {

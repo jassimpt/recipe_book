@@ -2,15 +2,15 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:quickalert/quickalert.dart';
-import 'package:recipe_book/db/functions/db_functions.dart';
-import 'package:recipe_book/db/model/data_model.dart';
+import 'package:recipe_book/controllers/db_functions.dart';
+import 'package:recipe_book/models/data_model.dart';
 import 'package:recipe_book/helpers/colors.dart';
-import 'package:recipe_book/pages/create_screen.dart';
-import 'package:recipe_book/pages/edit_screen.dart';
-import 'package:recipe_book/pages/login_page.dart';
-import 'package:recipe_book/pages/terms.dart';
+import 'package:recipe_book/views/pages/create_screen.dart';
+import 'package:recipe_book/views/pages/edit_screen.dart';
+import 'package:recipe_book/views/pages/login_page.dart';
+import 'package:recipe_book/views/pages/terms.dart';
 
-import 'package:recipe_book/pages/tutorial.dart';
+import 'package:recipe_book/views/pages/tutorial.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Homepage extends StatefulWidget {

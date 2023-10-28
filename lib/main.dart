@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:recipe_book/db/functions/db_functions.dart';
-import 'package:recipe_book/db/model/data_model.dart';
+import 'package:recipe_book/controllers/db_functions.dart';
+import 'package:recipe_book/models/data_model.dart';
 
-import 'package:recipe_book/pages/splash.dart';
+import 'package:recipe_book/views/pages/splash.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

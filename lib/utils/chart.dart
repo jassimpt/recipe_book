@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:recipe_book/db/model/data_model.dart';
+import 'package:recipe_book/models/data_model.dart';
 import 'package:recipe_book/helpers/colors.dart';
 
 class ChartScreen extends StatelessWidget {
