@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_book/controllers/functions.dart';
+import 'package:provider/provider.dart';
+import 'package:recipe_book/controllers/noti_function_provider.dart';
 import 'package:recipe_book/helpers/colors.dart';
 
 class NotificationsScreen extends StatefulWidget {
@@ -56,7 +57,10 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
               // ),
               Expanded(
                   child: ListView.builder(
-                itemCount: notifications.length,
+                // itemCount: notifications.length,
+                itemCount: Provider.of<NotificationProvider>(context)
+                    .notifications
+                    .length,
                 itemBuilder: (context, index) {
                   return Column(
                     children: [

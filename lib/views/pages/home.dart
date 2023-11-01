@@ -1,9 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:quickalert/quickalert.dart';
-import 'package:recipe_book/controllers/db_functions.dart';
-import 'package:recipe_book/models/data_model.dart';
+import 'package:recipe_book/controllers/db_function_provider.dart';
+
 import 'package:recipe_book/helpers/colors.dart';
 import 'package:recipe_book/views/pages/create_screen.dart';
 import 'package:recipe_book/views/pages/edit_screen.dart';
@@ -23,20 +24,22 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   String? userName;
-  List<RecipeModel> _foundrecipes = [];
-
-  loadrecipes() async {
-    final allrecipes = recipeListNotifier.value;
-    setState(() {
-      _foundrecipes = allrecipes;
-    });
-  }
+  // List<RecipeModel> _foundrecipes = [];
 
   @override
   void initState() {
     loadUsername();
     loadrecipes();
+
     super.initState();
+  }
+
+  loadrecipes() async {
+    // final allrecipes = recipeListNotifier.value;
+    // final allrecipes =
+    //     Provider.of<FunctionProvider>(context, listen: false).recipeList;
+    // _foundrecipes = allrecipes;
+    Provider.of<FunctionProvider>(context, listen: false).loadrecipes();
   }
 
   loadUsername() async {
@@ -47,25 +50,13 @@ class _HomepageState extends State<Homepage> {
   }
 
   _filter(String enteredName) {
-    List<RecipeModel> result = [];
-
-    if (enteredName.isEmpty) {
-      result = recipeListNotifier.value;
-    } else {
-      result = recipeListNotifier.value
-          .where((RecipeModel recipe) =>
-              recipe.foodname.toLowerCase().contains(enteredName.toLowerCase()))
-          .toList();
-    }
-
-    setState(() {
-      _foundrecipes = result;
-    });
+    Provider.of<FunctionProvider>(context, listen: false)
+        .filterRecipes(enteredName);
   }
 
   @override
   Widget build(BuildContext context) {
-    getAllRecipes();
+    Provider.of<FunctionProvider>(context).getAllRecipes();
     return SafeArea(
       child: Scaffold(
         endDrawer: SizedBox(
@@ -232,26 +223,25 @@ class _HomepageState extends State<Homepage> {
               const SizedBox(
                 height: 20,
               ),
-              Expanded(
-                child: ValueListenableBuilder(
-                  valueListenable: recipeListNotifier,
-                  builder: (BuildContext ctx, List<RecipeModel> recipeList,
-                      Widget? child) {
-                    return GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 0.75,
-                      ),
-                      itemCount: _foundrecipes.length,
-                      itemBuilder: (context, index) {
-                        final data = _foundrecipes[index];
-                        return recipecard(context, data, index);
-                      },
-                    );
-                  },
-                ),
-              ),
+              Expanded(child: Consumer<FunctionProvider>(
+                builder: (context, value, child) {
+                  return GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.75,
+                    ),
+                    itemCount: Provider.of<FunctionProvider>(context)
+                        .foundrecipe
+                        .length,
+                    itemBuilder: (context, index) {
+                      final data = Provider.of<FunctionProvider>(context)
+                          .foundrecipe[index];
+                      return recipecard(context, data, index);
+                    },
+                  );
+                },
+              )),
             ],
           ),
         ),
@@ -310,7 +300,9 @@ class _HomepageState extends State<Homepage> {
                           )),
                       IconButton(
                         onPressed: () {
-                          addtofavourites(data);
+                          Provider.of<FunctionProvider>(context, listen: false)
+                              .addtofavourites(data);
+                          // addtofavourites(data);
                         },
                         icon: Image.asset(
                           'assets/icons/bookmark.png',
@@ -391,7 +383,9 @@ class _HomepageState extends State<Homepage> {
         cancelBtnTextStyle: const TextStyle(color: Colors.red),
         confirmBtnColor: Colors.green,
         onConfirmBtnTap: () {
-          deleteRecipe(index);
+          Provider.of<FunctionProvider>(context, listen: false)
+              .deleteRecipe(index);
+          // deleteRecipe(index);
           Navigator.pop(context);
         },
         customAsset: 'assets/images/deleting.gif');

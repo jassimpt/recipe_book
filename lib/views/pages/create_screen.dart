@@ -5,9 +5,10 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
-import 'package:recipe_book/controllers/functions.dart';
-import 'package:recipe_book/controllers/db_functions.dart';
+import 'package:recipe_book/controllers/noti_function_provider.dart';
+import 'package:recipe_book/controllers/db_function_provider.dart';
 import 'package:recipe_book/models/data_model.dart';
 
 class Createscreen extends StatefulWidget {
@@ -82,16 +83,7 @@ class _CreatescreenState extends State<Createscreen> {
                             const BorderRadius.all(Radius.circular(15)),
                       ),
                     ),
-                    onTap: () {
-                      setState(() {
-                        isFieldFocused = true;
-                      });
-                    },
-                    onFieldSubmitted: (_) {
-                      setState(() {
-                        isFieldFocused = false;
-                      });
-                    },
+                    onTap: () {},
                   ),
                   const SizedBox(
                     height: 20,
@@ -188,7 +180,10 @@ class _CreatescreenState extends State<Createscreen> {
                       ),
                       onPressed: () {
                         addrecipe();
-                        addNotification();
+                        // addNotification();
+                        Provider.of<NotificationProvider>(context,
+                                listen: false)
+                            .addNotification();
                       },
                       child: const Text(
                         'Add my recipe',
@@ -308,8 +303,9 @@ class _CreatescreenState extends State<Createscreen> {
         return;
       }
 
-      final isDuplicate =
-          recipeListNotifier.value.any((recipe) => recipe.foodname == foodname);
+      final isDuplicate = Provider.of<FunctionProvider>(context, listen: false)
+          .recipeList
+          .any((recipe) => recipe.foodname == foodname);
       if (isDuplicate) {
         final snackBar = SnackBar(
           elevation: 0,
@@ -331,7 +327,8 @@ class _CreatescreenState extends State<Createscreen> {
           totalcost: totalcost,
           description: description);
 
-      addRecipe(recipe);
+      // addRecipe(recipe);
+      Provider.of<FunctionProvider>(context, listen: false).addRecipe(recipe);
 
       Navigator.pop(context);
 

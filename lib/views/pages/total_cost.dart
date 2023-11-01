@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import 'package:recipe_book/controllers/db_functions.dart';
+import 'package:recipe_book/controllers/db_function_provider.dart';
 import 'package:recipe_book/models/data_model.dart';
 
 import 'package:recipe_book/utils/chart.dart';
@@ -17,7 +18,8 @@ class TotalCost extends StatefulWidget {
 class _TotalCostState extends State<TotalCost> {
   @override
   Widget build(BuildContext context) {
-    List<RecipeModel> recipes = recipeListNotifier.value;
+    List<RecipeModel> recipes =
+        Provider.of<FunctionProvider>(context).recipeList;
 
     return Scaffold(
       body: SafeArea(

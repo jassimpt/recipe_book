@@ -4,8 +4,9 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
-import 'package:recipe_book/controllers/db_functions.dart';
+import 'package:recipe_book/controllers/db_function_provider.dart';
 import 'package:recipe_book/models/data_model.dart';
 
 class EditScreen extends StatefulWidget {
@@ -95,16 +96,6 @@ class _EditScreenState extends State<EditScreen> {
                       borderRadius: const BorderRadius.all(Radius.circular(15)),
                     ),
                   ),
-                  onTap: () {
-                    setState(() {
-                      isFieldFocused = true;
-                    });
-                  },
-                  onFieldSubmitted: (_) {
-                    setState(() {
-                      isFieldFocused = false;
-                    });
-                  },
                 ),
                 const SizedBox(
                   height: 20,
@@ -294,8 +285,9 @@ class _EditScreenState extends State<EditScreen> {
         totalcost: editedTotalcost,
         description: editedDescription,
         image: editedImage);
-
-    editRecipe(widget.index, updatedRecipe);
+    Provider.of<FunctionProvider>(context, listen: false)
+        .editRecipe(widget.index, updatedRecipe);
+    // editRecipe(widget.index, updatedRecipe);
     Navigator.pop(context);
     final snackBar = SnackBar(
       elevation: 0,
