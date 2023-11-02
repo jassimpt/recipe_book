@@ -5,6 +5,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:recipe_book/controllers/Images_provider.dart';
 
 import 'package:recipe_book/controllers/db_function_provider.dart';
 import 'package:recipe_book/models/data_model.dart';
@@ -37,15 +38,14 @@ class _EditScreenState extends State<EditScreen> {
   final TextEditingController descriptioncontroller = TextEditingController();
   final TextEditingController totalcostcontroller = TextEditingController();
 
-  File? selectedimage;
-
   @override
   void initState() {
     foodnamecontroller.text = widget.foodname;
     ingredientscontroller.text = widget.ingredients;
     descriptioncontroller.text = widget.description;
     totalcostcontroller.text = widget.totalcost;
-    selectedimage = widget.image != null ? File(widget.image) : null;
+    Provider.of<ImagesProvider>(context, listen: false).selectedimage =
+        widget.image != null ? File(widget.image) : null;
     super.initState();
   }
 
@@ -193,8 +193,9 @@ class _EditScreenState extends State<EditScreen> {
                   ),
                   title: const Text('Gallery'),
                   onTap: () {
-                    pickImage(source: ImageSource.gallery);
-                    //handle gallery
+                    Provider.of<ImagesProvider>(context, listen: false)
+                        .imagePicker(source: ImageSource.gallery);
+
                     Navigator.pop(context);
                   },
                 ),
@@ -205,8 +206,9 @@ class _EditScreenState extends State<EditScreen> {
                   ),
                   title: const Text('Camera'),
                   onTap: () {
-                    pickImage(source: ImageSource.camera);
-                    // Handle camera function
+                    Provider.of<ImagesProvider>(context, listen: false)
+                        .imagePicker(source: ImageSource.camera);
+
                     Navigator.pop(context);
                   },
                 ),
@@ -218,12 +220,13 @@ class _EditScreenState extends State<EditScreen> {
       child: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: selectedimage != null
-                    ? FileImage(
-                        selectedimage!,
-                      )
-                    : const AssetImage('assets/images/no-image.jpg')
-                        as ImageProvider,
+                image:
+                    Provider.of<ImagesProvider>(context).selectedimage != null
+                        ? FileImage(
+                            Provider.of<ImagesProvider>(context).selectedimage!,
+                          )
+                        : const AssetImage('assets/images/no-image.jpg')
+                            as ImageProvider,
                 fit: BoxFit.cover)),
         child: DottedBorder(
           dashPattern: const [15, 5],
@@ -258,20 +261,13 @@ class _EditScreenState extends State<EditScreen> {
     );
   }
 
-  pickImage({required source}) async {
-    final returnedimage = await ImagePicker().pickImage(source: source);
-
-    setState(() {
-      selectedimage = File(returnedimage!.path);
-    });
-  }
-
   updateRecipe() {
     final editedFoodname = foodnamecontroller.text.trim();
     final editedIngredients = ingredientscontroller.text.trim();
     final editedDescription = descriptioncontroller.text.trim();
     final editedTotalcost = totalcostcontroller.text.trim();
-    final editedImage = selectedimage?.path;
+    final editedImage =
+        Provider.of<ImagesProvider>(context, listen: false).selectedimage?.path;
 
     if (editedFoodname.isEmpty ||
         editedIngredients.isEmpty ||

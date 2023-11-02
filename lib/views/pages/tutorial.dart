@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:recipe_book/models/data_model.dart';
 import 'package:recipe_book/helpers/colors.dart';
 
+// ignore: must_be_immutable
 class TutorialScreen extends StatelessWidget {
   TutorialScreen({super.key, required this.recipe});
   RecipeModel recipe;

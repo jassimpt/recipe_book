@@ -24,7 +24,6 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   String? userName;
-  // List<RecipeModel> _foundrecipes = [];
 
   @override
   void initState() {
@@ -35,10 +34,6 @@ class _HomepageState extends State<Homepage> {
   }
 
   loadrecipes() async {
-    // final allrecipes = recipeListNotifier.value;
-    // final allrecipes =
-    //     Provider.of<FunctionProvider>(context, listen: false).recipeList;
-    // _foundrecipes = allrecipes;
     Provider.of<FunctionProvider>(context, listen: false).loadrecipes();
   }
 
@@ -302,7 +297,6 @@ class _HomepageState extends State<Homepage> {
                         onPressed: () {
                           Provider.of<FunctionProvider>(context, listen: false)
                               .addtofavourites(data);
-                          // addtofavourites(data);
                         },
                         icon: Image.asset(
                           'assets/icons/bookmark.png',

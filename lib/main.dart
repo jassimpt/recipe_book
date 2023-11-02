@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
+import 'package:recipe_book/controllers/Images_provider.dart';
 import 'package:recipe_book/controllers/db_function_provider.dart';
 import 'package:recipe_book/controllers/noti_function_provider.dart';
+import 'package:recipe_book/controllers/page_provider.dart';
 import 'package:recipe_book/models/data_model.dart';
 
 import 'package:recipe_book/views/pages/splash.dart';
@@ -30,6 +32,12 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => NotificationProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => PageProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ImagesProvider(),
         )
       ],
       child: MaterialApp(

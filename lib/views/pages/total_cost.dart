@@ -39,7 +39,6 @@ class _TotalCostState extends State<TotalCost> {
                 const SizedBox(
                   height: 40,
                 ),
-                // Add Pie Chart here
                 Stack(
                   alignment: Alignment.center,
                   children: [

@@ -45,7 +45,6 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
             itemCount:
                 Provider.of<FunctionProvider>(context).favouriterecipe.length,
             itemBuilder: (context, index) {
-              // final recipe = favouriterecipe[index];
               final recipe =
                   Provider.of<FunctionProvider>(context).favouriterecipe[index];
 
@@ -94,9 +93,6 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                                 Provider.of<FunctionProvider>(context,
                                         listen: false)
                                     .deleteFavourites(index);
-                                // setState(() {
-                                //   deleteFavourites(index);
-                                // });
                               },
                               icon: Image.asset(
                                 'assets/icons/bookmark.png',

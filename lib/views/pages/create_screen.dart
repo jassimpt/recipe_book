@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:recipe_book/controllers/Images_provider.dart';
 
 import 'package:recipe_book/controllers/noti_function_provider.dart';
 import 'package:recipe_book/controllers/db_function_provider.dart';
@@ -27,7 +28,7 @@ class _CreatescreenState extends State<Createscreen> {
   final _descriptionController = TextEditingController();
   final _ingredientsController = TextEditingController();
   final _totalCostController = TextEditingController();
-  File? selectedimage;
+
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
   @override
@@ -180,7 +181,7 @@ class _CreatescreenState extends State<Createscreen> {
                       ),
                       onPressed: () {
                         addrecipe();
-                        // addNotification();
+
                         Provider.of<NotificationProvider>(context,
                                 listen: false)
                             .addNotification();
@@ -216,7 +217,8 @@ class _CreatescreenState extends State<Createscreen> {
                   ),
                   title: const Text('Gallery'),
                   onTap: () {
-                    pickImage(source: ImageSource.gallery);
+                    Provider.of<ImagesProvider>(context, listen: false)
+                        .imagePicker(source: ImageSource.gallery);
 
                     Navigator.pop(context);
                   },
@@ -228,7 +230,8 @@ class _CreatescreenState extends State<Createscreen> {
                   ),
                   title: const Text('Camera'),
                   onTap: () {
-                    pickImage(source: ImageSource.camera);
+                    Provider.of<ImagesProvider>(context, listen: false)
+                        .imagePicker(source: ImageSource.camera);
 
                     Navigator.pop(context);
                   },
@@ -241,12 +244,13 @@ class _CreatescreenState extends State<Createscreen> {
       child: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: selectedimage != null
-                    ? FileImage(
-                        selectedimage!,
-                      )
-                    : const AssetImage('assets/images/no-image.jpg')
-                        as ImageProvider,
+                image:
+                    Provider.of<ImagesProvider>(context).selectedimage != null
+                        ? FileImage(
+                            Provider.of<ImagesProvider>(context).selectedimage!,
+                          )
+                        : const AssetImage('assets/images/no-image.jpg')
+                            as ImageProvider,
                 fit: BoxFit.cover)),
         child: DottedBorder(
           dashPattern: const [15, 5],
@@ -281,14 +285,6 @@ class _CreatescreenState extends State<Createscreen> {
     );
   }
 
-  pickImage({required source}) async {
-    final returnedimage = await ImagePicker().pickImage(source: source);
-
-    setState(() {
-      selectedimage = File(returnedimage!.path);
-    });
-  }
-
   void addrecipe() async {
     if (formkey.currentState!.validate()) {
       final foodname = _foodnameController.text.trim();
@@ -321,13 +317,14 @@ class _CreatescreenState extends State<Createscreen> {
       }
 
       final recipe = RecipeModel(
-          image: selectedimage?.path,
+          image: Provider.of<ImagesProvider>(context, listen: false)
+              .selectedimage
+              ?.path,
           foodname: foodname,
           ingredients: ingredients,
           totalcost: totalcost,
           description: description);
 
-      // addRecipe(recipe);
       Provider.of<FunctionProvider>(context, listen: false).addRecipe(recipe);
 
       Navigator.pop(context);

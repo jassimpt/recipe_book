@@ -57,7 +57,6 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
               // ),
               Expanded(
                   child: ListView.builder(
-                // itemCount: notifications.length,
                 itemCount: Provider.of<NotificationProvider>(context)
                     .notifications
                     .length,
