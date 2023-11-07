@@ -1,18 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_book/views/widgets/bottom_nav.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
+import 'package:recipe_book/controllers/login_provider.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
-  final GlobalKey<FormState> formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +12,7 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: Colors.red,
       body: SingleChildScrollView(
         child: Form(
-          key: formkey,
+          key: Provider.of<LoginProvider>(context).formkey,
           child: Column(
             children: [
               Padding(
@@ -70,7 +62,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
                           return null;
                         },
-                        controller: usernameController,
+                        controller: Provider.of<LoginProvider>(context)
+                            .usernameController,
                         decoration: InputDecoration(
                           fillColor: Colors.white,
                           filled: true,
@@ -94,7 +87,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 const MaterialStatePropertyAll(Colors.red),
                           ),
                           onPressed: () {
-                            checklogin();
+                            // checklogin(context);
+                            Provider.of<LoginProvider>(context, listen: false)
+                                .checkLogin(context);
                           },
                           child: const Text(
                             'Login Now',
@@ -111,16 +106,5 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
-  }
-
-  void checklogin() async {
-    if (formkey.currentState!.validate()) {
-      String userName = usernameController.text;
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('username', userName);
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => BottomNav(savedusername: userName),
-      ));
-    }
   }
 }

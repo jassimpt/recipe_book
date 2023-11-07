@@ -6,16 +6,11 @@ import 'package:recipe_book/models/data_model.dart';
 
 import 'package:recipe_book/utils/chart.dart';
 
-class TotalCost extends StatefulWidget {
+class TotalCost extends StatelessWidget {
   const TotalCost({
     Key? key,
   }) : super(key: key);
 
-  @override
-  State<TotalCost> createState() => _TotalCostState();
-}
-
-class _TotalCostState extends State<TotalCost> {
   @override
   Widget build(BuildContext context) {
     List<RecipeModel> recipes =

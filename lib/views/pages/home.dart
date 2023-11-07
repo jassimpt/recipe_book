@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:recipe_book/controllers/db_function_provider.dart';
+import 'package:recipe_book/controllers/login_provider.dart';
 
 import 'package:recipe_book/helpers/colors.dart';
 import 'package:recipe_book/views/pages/create_screen.dart';
@@ -23,34 +24,20 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  String? userName;
+  // String? userName;
 
   @override
   void initState() {
-    loadUsername();
-    loadrecipes();
+    Provider.of<LoginProvider>(context, listen: false).loadUsername();
+    Provider.of<FunctionProvider>(context, listen: false).loadrecipes();
 
     super.initState();
   }
 
-  loadrecipes() async {
-    Provider.of<FunctionProvider>(context, listen: false).loadrecipes();
-  }
-
-  loadUsername() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      userName = prefs.getString('username');
-    });
-  }
-
-  _filter(String enteredName) {
-    Provider.of<FunctionProvider>(context, listen: false)
-        .filterRecipes(enteredName);
-  }
-
   @override
   Widget build(BuildContext context) {
+    // Provider.of<LoginProvider>(context).loadUsername();
+    // Provider.of<FunctionProvider>(context, listen: false).loadrecipes();
     Provider.of<FunctionProvider>(context).getAllRecipes();
     return SafeArea(
       child: Scaffold(
@@ -142,9 +129,9 @@ class _HomepageState extends State<Homepage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  userName != null
+                  Provider.of<LoginProvider>(context).userName != null
                       ? Text(
-                          userName!,
+                          Provider.of<LoginProvider>(context).userName!,
                           style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -195,7 +182,9 @@ class _HomepageState extends State<Homepage> {
                 children: [
                   Expanded(
                     child: TextFormField(
-                      onChanged: (value) => _filter(value),
+                      onChanged: (value) =>
+                          Provider.of<FunctionProvider>(context, listen: false)
+                              .filterRecipes(value),
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(12)),
@@ -209,7 +198,7 @@ class _HomepageState extends State<Homepage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const Createscreen(),
+                              builder: (context) => Createscreen(),
                             ));
                       },
                       icon: Image.asset('assets/icons/produt_add.png')),

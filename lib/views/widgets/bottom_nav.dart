@@ -8,7 +8,7 @@ import 'package:recipe_book/views/pages/home.dart';
 import 'package:recipe_book/views/pages/notifications.dart';
 import 'package:recipe_book/views/pages/total_cost.dart';
 
-class BottomNav extends StatefulWidget {
+class BottomNav extends StatelessWidget {
   BottomNav({
     super.key,
     required this.savedusername,
@@ -16,30 +16,13 @@ class BottomNav extends StatefulWidget {
   final savedusername;
 
   @override
-  State<BottomNav> createState() => BottomNavState();
-}
-
-class BottomNavState extends State<BottomNav> {
-  late List pages;
-
-  @override
-  void initState() {
-    super.initState();
-
-    pages = [
-      Homepage(savedusername: widget.savedusername),
+  Widget build(BuildContext context) {
+    final List pages = [
+      Homepage(savedusername: savedusername),
       FavouritesScreen(),
       NotificationsScreen(),
       TotalCost(),
     ];
-  }
-
-  bottomNavigator(int index) {
-    Provider.of<PageProvider>(context, listen: false).pageNavigator(index);
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
       body: Stack(
@@ -64,7 +47,7 @@ class BottomNavState extends State<BottomNav> {
                   currentIndex:
                       Provider.of<PageProvider>(context, listen: false)
                           .selectedindex,
-                  onTap: bottomNavigator,
+                  onTap: (index) => bottomNavigator(context, index),
                   items: [
                     DotNavigationBarItem(
                         icon: Image.asset(
@@ -100,4 +83,8 @@ class BottomNavState extends State<BottomNav> {
       ),
     );
   }
+}
+
+bottomNavigator(BuildContext context, int index) {
+  Provider.of<PageProvider>(context, listen: false).pageNavigator(index);
 }

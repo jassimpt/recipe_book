@@ -3,16 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:recipe_book/controllers/noti_function_provider.dart';
 import 'package:recipe_book/helpers/colors.dart';
 
-class NotificationsScreen extends StatefulWidget {
+class NotificationsScreen extends StatelessWidget {
   const NotificationsScreen({
     super.key,
   });
 
-  @override
-  State<NotificationsScreen> createState() => _NotificationsScreenState();
-}
-
-class _NotificationsScreenState extends State<NotificationsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

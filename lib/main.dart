@@ -3,6 +3,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_book/controllers/Images_provider.dart';
 import 'package:recipe_book/controllers/db_function_provider.dart';
+import 'package:recipe_book/controllers/login_provider.dart';
 import 'package:recipe_book/controllers/noti_function_provider.dart';
 import 'package:recipe_book/controllers/page_provider.dart';
 import 'package:recipe_book/models/data_model.dart';
@@ -38,6 +39,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => ImagesProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => LoginProvider(),
         )
       ],
       child: MaterialApp(

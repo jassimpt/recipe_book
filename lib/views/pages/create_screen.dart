@@ -12,27 +12,20 @@ import 'package:recipe_book/controllers/noti_function_provider.dart';
 import 'package:recipe_book/controllers/db_function_provider.dart';
 import 'package:recipe_book/models/data_model.dart';
 
-class Createscreen extends StatefulWidget {
-  const Createscreen({
+class Createscreen extends StatelessWidget {
+  Createscreen({
     Key? key,
   }) : super(key: key);
-
-  @override
-  _CreatescreenState createState() => _CreatescreenState();
-}
-
-class _CreatescreenState extends State<Createscreen> {
   bool isFieldFocused = false;
-
-  final _foodnameController = TextEditingController();
-  final _descriptionController = TextEditingController();
-  final _ingredientsController = TextEditingController();
-  final _totalCostController = TextEditingController();
-
-  final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    final foodnameController = TextEditingController();
+    final descriptionController = TextEditingController();
+    final ingredientsController = TextEditingController();
+    final totalCostController = TextEditingController();
+
+    final GlobalKey<FormState> formkey = GlobalKey<FormState>();
     return SafeArea(
       child: Scaffold(
         body: Form(
@@ -59,7 +52,7 @@ class _CreatescreenState extends State<Createscreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  addcoverphoto(),
+                  addcoverphoto(context),
                   const SizedBox(
                     height: 30,
                   ),
@@ -70,7 +63,7 @@ class _CreatescreenState extends State<Createscreen> {
                       }
                       return null;
                     },
-                    controller: _foodnameController,
+                    controller: foodnameController,
                     decoration: InputDecoration(
                       hintText: 'Food Name',
                       focusedBorder: const OutlineInputBorder(
@@ -103,7 +96,7 @@ class _CreatescreenState extends State<Createscreen> {
                       }
                       return null;
                     },
-                    controller: _ingredientsController,
+                    controller: ingredientsController,
                     maxLines: 5,
                     decoration: const InputDecoration(
                         hintText: 'Enter all ingredients with comma seperated',
@@ -128,7 +121,7 @@ class _CreatescreenState extends State<Createscreen> {
                       }
                       return null;
                     },
-                    controller: _descriptionController,
+                    controller: descriptionController,
                     maxLines: 5,
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(
@@ -157,7 +150,7 @@ class _CreatescreenState extends State<Createscreen> {
                       FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
                     ],
                     keyboardType: TextInputType.number,
-                    controller: _totalCostController,
+                    controller: totalCostController,
                     decoration: const InputDecoration(
                         hintText: 'Enter total cost for this recipe',
                         border: OutlineInputBorder(
@@ -180,7 +173,12 @@ class _CreatescreenState extends State<Createscreen> {
                         backgroundColor: MaterialStateProperty.all(Colors.red),
                       ),
                       onPressed: () {
-                        addrecipe();
+                        addrecipe(context,
+                            descriptioncontroller: descriptionController,
+                            foodcontroller: foodnameController,
+                            ingredientcontroller: ingredientsController,
+                            key: formkey,
+                            totalcostcontroller: totalCostController);
 
                         Provider.of<NotificationProvider>(context,
                                 listen: false)
@@ -200,145 +198,151 @@ class _CreatescreenState extends State<Createscreen> {
       ),
     );
   }
+}
 
-  addcoverphoto() {
-    return InkWell(
-      onTap: () {
-        showModalBottomSheet(
-          context: context,
-          builder: (BuildContext context) {
-            return Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ListTile(
-                  leading: Image.asset(
-                    'assets/icons/gallery.png',
-                    height: 40,
-                  ),
-                  title: const Text('Gallery'),
-                  onTap: () {
-                    Provider.of<ImagesProvider>(context, listen: false)
-                        .imagePicker(source: ImageSource.gallery);
-
-                    Navigator.pop(context);
-                  },
+addcoverphoto(context) {
+  return InkWell(
+    onTap: () {
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: Image.asset(
+                  'assets/icons/gallery.png',
+                  height: 40,
                 ),
-                ListTile(
-                  leading: Image.asset(
-                    'assets/icons/camera.png',
-                    height: 40,
-                  ),
-                  title: const Text('Camera'),
-                  onTap: () {
-                    Provider.of<ImagesProvider>(context, listen: false)
-                        .imagePicker(source: ImageSource.camera);
+                title: const Text('Gallery'),
+                onTap: () {
+                  Provider.of<ImagesProvider>(context, listen: false)
+                      .imagePicker(source: ImageSource.gallery);
 
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            );
-          },
-        );
-      },
-      child: Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image:
-                    Provider.of<ImagesProvider>(context).selectedimage != null
-                        ? FileImage(
-                            Provider.of<ImagesProvider>(context).selectedimage!,
-                          )
-                        : const AssetImage('assets/images/no-image.jpg')
-                            as ImageProvider,
-                fit: BoxFit.cover)),
-        child: DottedBorder(
-          dashPattern: const [15, 5],
-          color: Colors.grey,
-          strokeWidth: 2,
-          borderType: BorderType.RRect,
-          radius: const Radius.circular(10),
-          child: const SizedBox(
-            width: double.infinity,
-            height: 160,
-            child: Padding(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Icon(
-                    Icons.photo,
-                    size: 65,
-                    color: Colors.grey,
-                  ),
-                  Text(
-                    'Add cover photo',
-                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                  ),
-                  Text('up to 12 mb')
-                ],
+                  Navigator.pop(context);
+                },
               ),
+              ListTile(
+                leading: Image.asset(
+                  'assets/icons/camera.png',
+                  height: 40,
+                ),
+                title: const Text('Camera'),
+                onTap: () {
+                  Provider.of<ImagesProvider>(context, listen: false)
+                      .imagePicker(source: ImageSource.camera);
+
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
+    },
+    child: Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: Provider.of<ImagesProvider>(context).selectedimage != null
+                  ? FileImage(
+                      Provider.of<ImagesProvider>(context).selectedimage!,
+                    )
+                  : const AssetImage('assets/images/no-image.jpg')
+                      as ImageProvider,
+              fit: BoxFit.cover)),
+      child: DottedBorder(
+        dashPattern: const [15, 5],
+        color: Colors.grey,
+        strokeWidth: 2,
+        borderType: BorderType.RRect,
+        radius: const Radius.circular(10),
+        child: const SizedBox(
+          width: double.infinity,
+          height: 160,
+          child: Padding(
+            padding: EdgeInsets.all(20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Icon(
+                  Icons.photo,
+                  size: 65,
+                  color: Colors.grey,
+                ),
+                Text(
+                  'Add cover photo',
+                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                ),
+                Text('up to 12 mb')
+              ],
             ),
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 
-  void addrecipe() async {
-    if (formkey.currentState!.validate()) {
-      final foodname = _foodnameController.text.trim();
-      final ingredients = _ingredientsController.text.trim();
-      final totalcost = _totalCostController.text.trim();
-      final description = _descriptionController.text.trim();
+void addrecipe(
+  context, {
+  required key,
+  required foodcontroller,
+  required ingredientcontroller,
+  required totalcostcontroller,
+  required descriptioncontroller,
+}) async {
+  if (key.currentState!.validate()) {
+    final foodname = foodcontroller.text.trim();
+    final ingredients = ingredientcontroller.text.trim();
+    final totalcost = totalcostcontroller.text.trim();
+    final description = descriptioncontroller.text.trim();
 
-      if (foodname.isEmpty ||
-          description.isEmpty ||
-          ingredients.isEmpty ||
-          totalcost.isEmpty) {
-        return;
-      }
+    if (foodname.isEmpty ||
+        description.isEmpty ||
+        ingredients.isEmpty ||
+        totalcost.isEmpty) {
+      return;
+    }
 
-      final isDuplicate = Provider.of<FunctionProvider>(context, listen: false)
-          .recipeList
-          .any((recipe) => recipe.foodname == foodname);
-      if (isDuplicate) {
-        final snackBar = SnackBar(
-          elevation: 0,
-          behavior: SnackBarBehavior.floating,
-          backgroundColor: Colors.transparent,
-          content: AwesomeSnackbarContent(
-              title: 'Oops!!',
-              message: 'Recipe with same name exists',
-              contentType: ContentType.failure),
-        );
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        return;
-      }
-
-      final recipe = RecipeModel(
-          image: Provider.of<ImagesProvider>(context, listen: false)
-              .selectedimage
-              ?.path,
-          foodname: foodname,
-          ingredients: ingredients,
-          totalcost: totalcost,
-          description: description);
-
-      Provider.of<FunctionProvider>(context, listen: false).addRecipe(recipe);
-
-      Navigator.pop(context);
-
+    final isDuplicate = Provider.of<FunctionProvider>(context, listen: false)
+        .recipeList
+        .any((recipe) => recipe.foodname == foodname);
+    if (isDuplicate) {
       final snackBar = SnackBar(
         elevation: 0,
         behavior: SnackBarBehavior.floating,
         backgroundColor: Colors.transparent,
         content: AwesomeSnackbarContent(
-            title: 'Oh Hey!!',
-            message: 'You successfully added your magic recipe',
-            contentType: ContentType.success),
+            title: 'Oops!!',
+            message: 'Recipe with same name exists',
+            contentType: ContentType.failure),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      return;
     }
+
+    final recipe = RecipeModel(
+        image: Provider.of<ImagesProvider>(context, listen: false)
+            .selectedimage
+            ?.path,
+        foodname: foodname,
+        ingredients: ingredients,
+        totalcost: totalcost,
+        description: description);
+
+    Provider.of<FunctionProvider>(context, listen: false).addRecipe(recipe);
+
+    Navigator.pop(context);
+
+    final snackBar = SnackBar(
+      elevation: 0,
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Colors.transparent,
+      content: AwesomeSnackbarContent(
+          title: 'Oh Hey!!',
+          message: 'You successfully added your magic recipe',
+          contentType: ContentType.success),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
